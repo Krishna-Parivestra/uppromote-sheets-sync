@@ -1,57 +1,73 @@
-# UpPromote → Google Sheets Sync (Step 1)
+# UpPromote -> Google Sheets (Step 4: Simple Account Replacement)
 
-This is the first standalone version of the cloud sync pipeline, derived from the existing UpPromote scraper code.
+This version is intentionally simple for the reporting use case:
 
-## What is included
+- Up to 100 rows are scraped per UpPromote account.
+- Each account has its own login/session.
+- Every row includes account_id and account_name.
+- Every full sync replaces the previous rows for that account with the newest snapshot.
+- Other accounts' rows are preserved.
+- Empty/invalid snapshots are refused by default, so a scraper failure does not erase an account's good data.
+- No pagination is used.
+- Google Apps Script is the only Google-side component; no Google Cloud hosting is required.
 
-- Playwright authentication/session handling
-- UpPromote Orders/Commission table extraction
-- Header-driven column mapping
-- Full-history pagination or current-page snapshot mode
-- Status/amount/date normalization
-- Google Sheets API writer
-- Idempotent upsert using `source_order_id`
-- Logging and clean process shutdown
+## Local multi-account configuration
 
-## What is intentionally removed
+Create `config/accounts.local.json` (never commit it):
 
-- Supabase
-- Express/API routes
-- Socket.IO
-- React/Vite frontend
-- Website dashboard
+```json
+[
+  {
+    "id": "hypdshop",
+    "name": "HYPD Shop",
+    "url": "https://af.uppromote.com/hypdshop/dashboard",
+    "email": "YOUR_EMAIL",
+    "password": "YOUR_PASSWORD",
+    "storageStatePath": "./playwright-session/storage-state.json",
+    "commissionRate": "",
+    "allowEmptyFullSync": false
+  },
+  {
+    "id": "account_2",
+    "name": "SECOND ACCOUNT",
+    "url": "https://af.uppromote.com/ACCOUNT_2/dashboard",
+    "email": "SECOND_EMAIL",
+    "password": "SECOND_PASSWORD",
+    "storageStatePath": "./playwright-session/account_2.json",
+    "commissionRate": "",
+    "allowEmptyFullSync": false
+  }
+]
+```
 
-## Data flow
+Use a unique `id` and `storageStatePath` for every account.
 
-`UpPromote → Playwright → parser → Google Sheets`
+## Google Apps Script properties
 
-## Sheet structure
+In the spreadsheet's Apps Script project, create these Script Properties:
 
-The default tab is `RAW_ORDERS` with these columns:
+- `SPREADSHEET_ID`: the target spreadsheet ID
+- `SYNC_SECRET`: a private secret shared with the Node runner
+- `TAB_NAME`: `RAW_ORDERS`
 
-`source_order_id, source, referral_id, order_date, product_name, quantity, order_amount, commission_amount, commission_status, commission_status_raw, order_status, order_status_raw, customer_name, customer_email, reference_id, last_synced_at, raw_snapshot_json`
+Deploy the Apps Script as a web app and put its `/exec` URL into `GOOGLE_APPS_SCRIPT_URL`.
 
-## Local setup
+## Local test
 
-```bash
+```powershell
 npm install
-npx playwright install --with-deps chromium
-cp .env.example .env
 npm run check
 npm run sync
 ```
 
-Set these environment variables in `.env`:
+For the first login of a new account, use `SCRAPER_HEADLESS=false` so the authorized user can complete any CAPTCHA/MFA challenge manually. After the session is saved, switch back to `true`.
 
-- `UPPROMOTE_EMAIL`
-- `UPPROMOTE_PASSWORD`
-- `GOOGLE_SHEETS_ID`
-- `GOOGLE_SERVICE_ACCOUNT_JSON_B64`
+## Expected replacement behavior
 
-Share the target Google Sheet with the service-account `client_email` as an Editor before running the sync.
+If HYPD Shop has 100 rows in the sheet and the next run contains 100 rows:
 
-`SCRAPE_MODE=full` is the safer initial mode because it walks all available pages and lets the sheet upsert layer deduplicate records. Use `snapshot` later only after we add a reliable incremental strategy.
+- old HYPD rows are removed
+- newest HYPD rows are written
+- rows belonging to other accounts stay untouched
 
-## Important authentication limitation
-
-This code never bypasses MFA/CAPTCHA. In headless cloud execution, a new challenge causes the run to fail rather than waiting forever for human input. We will handle the operational strategy for session expiry/challenges in a later build step.
+If an order's commission/status changes, the newest row automatically replaces the old one. No duplicate-history logic is needed for the reporting sheet.

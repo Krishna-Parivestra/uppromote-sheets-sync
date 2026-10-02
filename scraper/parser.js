@@ -91,8 +91,8 @@ export function resolveColumnIndexes(headerTexts) {
  * order amount instead of trusting that field. Leave COMMISSION_RATE unset
  * to fall back to whatever the source page actually shows.
  */
-function computeCommissionAmount(orderAmount, scrapedCommissionAmount) {
-  const rate = Number(process.env.COMMISSION_RATE);
+function computeCommissionAmount(orderAmount, scrapedCommissionAmount, commissionRate = process.env.COMMISSION_RATE) {
+  const rate = Number(commissionRate);
   if (!Number.isFinite(rate) || rate <= 0) return scrapedCommissionAmount;
   if (orderAmount === null) return scrapedCommissionAmount;
   return Math.round(orderAmount * rate * 100) / 100;
@@ -103,7 +103,7 @@ function computeCommissionAmount(orderAmount, scrapedCommissionAmount) {
  * resolved column map. Any field UpPromote doesn't expose becomes null —
  * never fabricated (spec section 6).
  */
-export function parseOrderRow(cellTexts, columnIndexes) {
+export function parseOrderRow(cellTexts, columnIndexes, { commissionRate } = {}) {
   const get = (field) => {
     const idx = columnIndexes[field];
     return idx === undefined ? null : (cellTexts[idx] ?? "").trim() || null;
@@ -127,7 +127,7 @@ export function parseOrderRow(cellTexts, columnIndexes) {
     productName: get("productName"),
     quantity: parseQuantity(get("quantity")),
     orderAmount,
-    commissionAmount: computeCommissionAmount(orderAmount, scrapedCommissionAmount),
+    commissionAmount: computeCommissionAmount(orderAmount, scrapedCommissionAmount, commissionRate),
     commissionStatus: normalizeCommissionStatus(commissionStatusRaw),
     commissionStatusRaw,
     orderStatus: normalizeOrderStatus(orderStatusRaw),

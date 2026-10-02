@@ -67,7 +67,7 @@ export async function advancePagination(page) {
   if (next) {
     if (next.disabled) {
       logger.debug("Pagination: Next button disabled, reached last page");
-      return false;
+      return { advanced: false, terminal: true, reason: "next-disabled" };
     }
     const fingerprintBefore = await getContentFingerprint(page);
     await next.locator.click();
@@ -76,9 +76,9 @@ export async function advancePagination(page) {
     const fingerprintAfter = await getContentFingerprint(page);
     if (fingerprintAfter === fingerprintBefore) {
       logger.debug("Pagination: Next click produced no content change, treating as last page");
-      return false;
+      return { advanced: false, terminal: false, reason: "next-no-content-change" };
     }
-    return true;
+    return { advanced: true, terminal: false, reason: "next-clicked" };
   }
 
   const loadMore = await firstClickable(page, selectors.pagination.loadMoreButton);
@@ -86,15 +86,16 @@ export async function advancePagination(page) {
     await loadMore.locator.click();
     await page.waitForTimeout(800);
     const after = await countRows(page);
-    return after > before;
+    if (after > before) return { advanced: true, terminal: false, reason: "load-more-clicked" };
+    return { advanced: false, terminal: false, reason: "load-more-no-growth" };
   }
 
   // Infinite scroll fallback: scroll to bottom and see if row count grows.
   await page.mouse.wheel(0, 4000);
   await page.waitForTimeout(800);
   const afterScroll = await countRows(page);
-  if (afterScroll > before) return true;
+  if (afterScroll > before) return { advanced: true, terminal: false, reason: "infinite-scroll" };
 
-  logger.debug("Pagination: no next button, load-more, or scroll growth — assuming last page");
-  return false;
+  logger.debug("Pagination: no next button, load-more, or scroll growth — treating current table as complete");
+  return { advanced: false, terminal: true, reason: "no-pagination-controls" };
 }

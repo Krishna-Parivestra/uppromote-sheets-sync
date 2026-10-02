@@ -1,0 +1,50 @@
+name: UpPromote → Google Sheets Sync
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Five runs per day in India time.
+    # Note: a daily cron cannot express a rolling 5-hour interval exactly;
+    # this gives 00:00, 05:00, 10:00, 15:00 and 20:00 IST.
+    - cron: '0 0,5,10,15,20 * * *'
+      timezone: 'Asia/Kolkata'
+
+concurrency:
+  group: uppromote-sheets-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      UPPROMOTE_ACCOUNTS_JSON_B64: ${{ secrets.UPPROMOTE_ACCOUNTS_JSON_B64 }}
+      GOOGLE_APPS_SCRIPT_URL: ${{ secrets.GOOGLE_APPS_SCRIPT_URL }}
+      GOOGLE_APPS_SCRIPT_SECRET: ${{ secrets.GOOGLE_APPS_SCRIPT_SECRET }}
+      SCRAPER_HEADLESS: 'true'
+      SCRAPE_MODE: 'full'
+      FAIL_WORKFLOW_ON_ANY_ACCOUNT_ERROR: 'true'
+      GOOGLE_APPS_SCRIPT_CHUNK_SIZE: '500'
+      GOOGLE_SHEETS_TAB: 'RAW_ORDERS'
+      NODE_ENV: 'production'
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Chromium and Linux dependencies
+        run: npx playwright install --with-deps chromium
+
+      - name: Check JavaScript
+        run: npm run check
+
+      - name: Run UpPromote sync
+        run: npm run sync

@@ -1,7 +1,8 @@
-import { google } from "googleapis";
 import { logger } from "../utils/logger.js";
 
 export const SHEET_HEADERS = [
+  "account_id",
+  "account_name",
   "source_order_id",
   "source",
   "referral_id",
@@ -21,35 +22,10 @@ export const SHEET_HEADERS = [
   "raw_snapshot_json",
 ];
 
-const DATA_START_ROW = 2;
-
 function requireEnv(name) {
   const value = process.env[name]?.trim();
   if (!value) throw new Error(`${name} is not set`);
   return value;
-}
-
-function getAuth() {
-  const encoded = requireEnv("GOOGLE_SERVICE_ACCOUNT_JSON_B64");
-  let json;
-  try {
-    json = JSON.parse(Buffer.from(encoded, "base64").toString("utf8"));
-  } catch (error) {
-    throw new Error(`GOOGLE_SERVICE_ACCOUNT_JSON_B64 is not valid base64 JSON: ${error.message}`);
-  }
-
-  if (!json.client_email || !json.private_key) {
-    throw new Error("Google service-account JSON is missing client_email or private_key");
-  }
-
-  return new google.auth.GoogleAuth({
-    credentials: json,
-    scopes: ["https://www.googleapis.com/auth/spreadsheets"],
-  });
-}
-
-function sheetsClient() {
-  return google.sheets({ version: "v4", auth: getAuth() });
 }
 
 function serializeDate(value) {
@@ -58,9 +34,6 @@ function serializeDate(value) {
   return Number.isNaN(date.getTime()) ? String(value) : date.toISOString();
 }
 
-// Google Sheets stores date/time values as serial day numbers. Using the
-// serial representation keeps writes and subsequent reads stable, avoiding
-// false updates caused by Sheets returning parsed dates as numbers.
 function serializeSheetsDate(value) {
   if (!value) return "";
   const date = value instanceof Date ? value : new Date(value);
@@ -74,8 +47,10 @@ function serializeCell(value) {
   return String(value);
 }
 
-export function orderToRow(order, syncedAt = new Date()) {
+export function orderToRow(order, account, syncedAt = new Date()) {
   return [
+    serializeCell(account.id),
+    serializeCell(account.name),
     serializeCell(order.sourceOrderId),
     serializeCell(order.source),
     serializeCell(order.referralId),
@@ -96,160 +71,94 @@ export function orderToRow(order, syncedAt = new Date()) {
   ];
 }
 
-function rowKey(row) {
-  return String(row?.[0] ?? "").trim();
-}
-
-function comparableRow(row) {
-  return SHEET_HEADERS.map((_, index) => String(row?.[index] ?? "").trim());
-}
-
-function dataEqual(a, b) {
-  return JSON.stringify(comparableRow(a)) === JSON.stringify(comparableRow(b));
-}
-
-async function ensureSheetHeader(sheets, spreadsheetId, tabName) {
-  const range = `${tabName}!A1:${columnLetter(SHEET_HEADERS.length)}1`;
-  const current = await sheets.spreadsheets.values.get({ spreadsheetId, range });
-  const existing = current.data.values?.[0] || [];
-  const matches = existing.length === SHEET_HEADERS.length && SHEET_HEADERS.every((h, i) => existing[i] === h);
-  if (matches) return;
-
-  await sheets.spreadsheets.values.update({
-    spreadsheetId,
-    range,
-    valueInputOption: "RAW",
-    requestBody: { values: [SHEET_HEADERS] },
+async function postJson(url, body) {
+  const response = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+    redirect: "follow",
   });
-  logger.info("Initialized Google Sheet header", { tabName });
+
+  const text = await response.text();
+  let payload;
+  try {
+    payload = JSON.parse(text);
+  } catch {
+    throw new Error(`Apps Script returned non-JSON response (HTTP ${response.status}): ${text.slice(0, 500)}`);
+  }
+
+  if (!response.ok || !payload.ok) {
+    throw new Error(payload.error || `Apps Script request failed with HTTP ${response.status}`);
+  }
+  return payload;
 }
 
-function columnLetter(number) {
-  let n = number;
-  let result = "";
-  while (n > 0) {
-    const remainder = (n - 1) % 26;
-    result = String.fromCharCode(65 + remainder) + result;
-    n = Math.floor((n - 1) / 26);
+export async function replaceAccountOrders(orders, { account }) {
+  const url = requireEnv("GOOGLE_APPS_SCRIPT_URL");
+  const secret = requireEnv("GOOGLE_APPS_SCRIPT_SECRET");
+
+  if (orders.length === 0 && !account.allowEmptyFullSync) {
+    throw new Error(`Refusing to replace account ${account.name} with an empty dataset`);
   }
+
+  const rows = orders.map((order) => orderToRow(order, account));
+  const result = await postJson(url, {
+    action: "replaceAccountOrders",
+    secret,
+    accountId: account.id,
+    rows,
+    allowEmpty: Boolean(account.allowEmptyFullSync),
+  });
+
+  logger.info("Google Sheets account replacement completed", {
+    account: account.name,
+    ...result,
+  });
+
   return result;
 }
 
-async function formatDateColumns(sheets, spreadsheetId, tabName) {
-  const metadata = await sheets.spreadsheets.get({
-    spreadsheetId,
-    fields: "sheets.properties",
-  });
-  const sheet = metadata.data.sheets?.find((s) => s.properties?.title === tabName);
-  const sheetId = sheet?.properties?.sheetId;
-  if (sheetId === undefined) throw new Error(`Google Sheet tab not found: ${tabName}`);
-
-  await sheets.spreadsheets.batchUpdate({
-    spreadsheetId,
-    requestBody: {
-      requests: [
-        {
-          repeatCell: {
-            range: { sheetId, startRowIndex: 1, startColumnIndex: 3, endColumnIndex: 4 },
-            cell: { userEnteredFormat: { numberFormat: { type: "DATE_TIME", pattern: "yyyy-mm-dd hh:mm:ss" } } },
-            fields: "userEnteredFormat.numberFormat",
-          },
-        },
-        {
-          repeatCell: {
-            range: { sheetId, startRowIndex: 1, startColumnIndex: 14, endColumnIndex: 15 },
-            cell: { userEnteredFormat: { numberFormat: { type: "DATE_TIME", pattern: "yyyy-mm-dd hh:mm:ss" } } },
-            fields: "userEnteredFormat.numberFormat",
-          },
-        },
-      ],
-    },
-  });
-}
-
-async function readExistingRows(sheets, spreadsheetId, tabName) {
-  const endColumn = columnLetter(SHEET_HEADERS.length);
-  const range = `${tabName}!A${DATA_START_ROW}:${endColumn}`;
-  const response = await sheets.spreadsheets.values.get({
-    spreadsheetId,
-    range,
-    valueRenderOption: "UNFORMATTED_VALUE",
-  });
-  return response.data.values || [];
-}
-
-export async function upsertOrders(orders) {
-  const spreadsheetId = requireEnv("GOOGLE_SHEETS_ID");
-  const tabName = process.env.GOOGLE_SHEETS_TAB?.trim() || "RAW_ORDERS";
-  const sheets = sheetsClient();
-
-  await ensureSheetHeader(sheets, spreadsheetId, tabName);
-  await formatDateColumns(sheets, spreadsheetId, tabName);
-  const existingRows = await readExistingRows(sheets, spreadsheetId, tabName);
-
-  const rowByOrderId = new Map();
-  for (let i = 0; i < existingRows.length; i++) {
-    const id = rowKey(existingRows[i]);
-    if (id) rowByOrderId.set(id, { rowNumber: DATA_START_ROW + i, row: existingRows[i] });
+export async function upsertOrders(orders, { account }) {
+  const url = requireEnv("GOOGLE_APPS_SCRIPT_URL");
+  const secret = requireEnv("GOOGLE_APPS_SCRIPT_SECRET");
+  const chunkSize = Number(process.env.GOOGLE_APPS_SCRIPT_CHUNK_SIZE || 500);
+  if (!Number.isInteger(chunkSize) || chunkSize <= 0) {
+    throw new Error("GOOGLE_APPS_SCRIPT_CHUNK_SIZE must be a positive integer");
   }
 
-  const now = new Date();
-  const appendRows = [];
-  const updates = [];
-  let unchanged = 0;
-
-  for (const order of orders) {
-    const row = orderToRow(order, now);
-    const id = rowKey(row);
-    if (!id) continue;
-
-    const existing = rowByOrderId.get(id);
-    if (!existing) {
-      appendRows.push(row);
-      continue;
-    }
-
-    // Ignore last_synced_at when deciding whether source data changed.
-    const existingComparable = [...existing.row];
-    const newComparable = [...row];
-    existingComparable[14] = "";
-    newComparable[14] = "";
-
-    if (dataEqual(existingComparable, newComparable)) {
-      unchanged++;
-      continue;
-    }
-
-    updates.push({ rowNumber: existing.rowNumber, row });
-  }
-
-  if (appendRows.length > 0) {
-    await sheets.spreadsheets.values.append({
-      spreadsheetId,
-      range: `${tabName}!A:${columnLetter(SHEET_HEADERS.length)}`,
-      valueInputOption: "USER_ENTERED",
-      insertDataOption: "INSERT_ROWS",
-      requestBody: { values: appendRows },
-    });
-  }
-
-  if (updates.length > 0) {
-    const data = updates.map(({ rowNumber, row }) => ({
-      range: `${tabName}!A${rowNumber}:${columnLetter(SHEET_HEADERS.length)}${rowNumber}`,
-      values: [row],
-    }));
-    await sheets.spreadsheets.values.batchUpdate({
-      spreadsheetId,
-      requestBody: { valueInputOption: "USER_ENTERED", data },
-    });
-  }
-
-  const result = {
-    found: orders.length,
-    created: appendRows.length,
-    updated: updates.length,
-    unchanged,
+  const rows = orders.map((order) => orderToRow(order, account));
+  const aggregate = {
+    received: 0,
+    created: 0,
+    updated: 0,
+    unchanged: 0,
+    skipped: 0,
+    finalRowCount: null,
   };
-  logger.info("Google Sheets upsert completed", result);
-  return result;
+
+  for (let offset = 0; offset < rows.length; offset += chunkSize) {
+    const chunk = rows.slice(offset, offset + chunkSize);
+    const result = await postJson(url, {
+      action: "upsertOrders",
+      secret,
+      rows: chunk,
+    });
+    aggregate.received += result.received || 0;
+    aggregate.created += result.created || 0;
+    aggregate.updated += result.updated || 0;
+    aggregate.unchanged += result.unchanged || 0;
+    aggregate.skipped += result.skipped || 0;
+    aggregate.finalRowCount = result.finalRowCount ?? aggregate.finalRowCount;
+    logger.info("Google Sheets upsert chunk completed", {
+      account: account.name,
+      offset,
+      chunkSize: chunk.length,
+      created: result.created,
+      updated: result.updated,
+      unchanged: result.unchanged,
+    });
+  }
+
+  logger.info("Google Sheets upsert completed", { account: account.name, ...aggregate });
+  return aggregate;
 }

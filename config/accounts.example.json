@@ -1,0 +1,22 @@
+[
+  {
+    "id": "hypdshop_main",
+    "name": "HYPD Shop",
+    "url": "https://af.uppromote.com/hypdshop/dashboard",
+    "email": "account@example.com",
+    "password": "REPLACE_ME",
+    "storageStatePath": "./playwright-session/hypdshop_main.json",
+    "commissionRate": "",
+    "allowEmptyFullSync": false
+  },
+  {
+    "id": "second_account",
+    "name": "Second UpPromote Account",
+    "url": "https://af.uppromote.com/another-shop/dashboard",
+    "email": "account2@example.com",
+    "password": "REPLACE_ME",
+    "storageStatePath": "./playwright-session/second_account.json",
+    "commissionRate": "",
+    "allowEmptyFullSync": false
+  }
+]

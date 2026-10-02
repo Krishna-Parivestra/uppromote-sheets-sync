@@ -1,9 +1,10 @@
+
+.env
+playwright-session/
+logs/
+config/accounts.local.json
+
 node_modules/
 .env
-.env.*
-!.env.example
-logs/
 playwright-session/
-*.local.json
-*.service-account.json
-.DS_Store
+logs/

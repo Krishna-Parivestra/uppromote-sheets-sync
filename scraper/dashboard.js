@@ -124,7 +124,7 @@ async function getRowLocators(table) {
  * (historical sync walks all pages; live monitoring just re-reads the
  * current view).
  */
-export async function extractVisibleOrders(page) {
+export async function extractVisibleOrders(page, parseOptions = {}) {
   const table = await getTableContainer(page);
   if (!table) {
     throw new Error(
@@ -152,7 +152,8 @@ export async function extractVisibleOrders(page) {
     if (cellTexts.length === 0) continue;
     const record = parseOrderRow(
       cellTexts.map((t) => t.trim()),
-      columnIndexes
+      columnIndexes,
+      parseOptions
     );
     if (record) records.push(record);
   }

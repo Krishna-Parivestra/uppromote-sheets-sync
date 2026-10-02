@@ -2,7 +2,6 @@ import fs from "node:fs";
 import path from "node:path";
 import { selectors } from "./selectors.js";
 import { logger } from "../utils/logger.js";
-import { browserSession } from "./browser.js";
 
 export class AuthChallengeError extends Error {
   constructor(kind) {
@@ -19,14 +18,14 @@ const LOG_DIR = path.resolve(process.cwd(), "logs");
  * detected — purely observational (what's actually on screen), never used
  * to interact with or solve the challenge.
  */
-async function captureChallengeEvidence(page, kind) {
+async function captureChallengeEvidence(page, kind, accountId = "account") {
   try {
     if (!fs.existsSync(LOG_DIR)) fs.mkdirSync(LOG_DIR, { recursive: true });
-    await page.screenshot({ path: path.join(LOG_DIR, `challenge-${kind}.png`), fullPage: true });
-    fs.writeFileSync(path.join(LOG_DIR, `challenge-${kind}.html`), await page.content(), "utf-8");
+    await page.screenshot({ path: path.join(LOG_DIR, `challenge-${accountId}-${kind}.png`), fullPage: true });
+    fs.writeFileSync(path.join(LOG_DIR, `challenge-${accountId}-${kind}.html`), await page.content(), "utf-8");
     logger.info("Saved challenge evidence", {
-      screenshot: `logs/challenge-${kind}.png`,
-      html: `logs/challenge-${kind}.html`,
+      screenshot: `logs/challenge-${accountId}-${kind}.png`,
+      html: `logs/challenge-${accountId}-${kind}.html`,
     });
   } catch (err) {
     logger.warn("Could not capture challenge evidence", { message: err.message });
@@ -82,24 +81,26 @@ async function waitForManualResolution(page, kind) {
  * Never attempts to bypass MFA/CAPTCHA — throws AuthChallengeError instead
  * so the caller can surface it to a human (spec sections 3, 29, 34).
  */
-export async function ensureAuthenticated() {
-  const page = await browserSession.getPage();
-  const targetUrl = process.env.UPPROMOTE_URL;
-  if (!targetUrl) throw new Error("UPPROMOTE_URL is not set in backend/.env");
+export async function ensureAuthenticated({ session, account }) {
+  if (!session) throw new Error("Browser session is required");
+  if (!account) throw new Error("UpPromote account configuration is required");
+  const page = await session.getPage();
+  const targetUrl = account.url;
+  if (!targetUrl) throw new Error(`UPPROMOTE URL is not set for account ${account.id}`);
 
   await page.goto(targetUrl, { waitUntil: "domcontentloaded" });
 
   if (await isLoggedIn(page)) {
-    logger.info("Already authenticated (reused session)");
+    logger.info("Already authenticated (reused session)", { account: account.name });
     return page;
   }
 
   const challenge = await detectChallenge(page);
   if (challenge) {
-    await captureChallengeEvidence(page, challenge);
+    await captureChallengeEvidence(page, challenge, account.id);
     const headed = process.env.SCRAPER_HEADLESS === "false";
     if (headed && (await waitForManualResolution(page, challenge))) {
-      await browserSession.saveStorageState();
+      await session.saveStorageState();
       logger.info("Challenge resolved manually, session saved");
       return page;
     }
@@ -108,10 +109,10 @@ export async function ensureAuthenticated() {
 
   logger.info("Login required, submitting authorized credentials");
 
-  const email = process.env.UPPROMOTE_EMAIL;
-  const password = process.env.UPPROMOTE_PASSWORD;
+  const email = account.email;
+  const password = account.password;
   if (!email || !password) {
-    throw new Error("UPPROMOTE_EMAIL / UPPROMOTE_PASSWORD are not set in backend/.env");
+    throw new Error(`UPPROMOTE email/password are not set for account ${account.id}`);
   }
 
   const emailInput = await firstVisible(page, selectors.login.emailInput);
@@ -135,10 +136,10 @@ export async function ensureAuthenticated() {
 
   const postLoginChallenge = await detectChallenge(page);
   if (postLoginChallenge) {
-    await captureChallengeEvidence(page, postLoginChallenge);
+    await captureChallengeEvidence(page, postLoginChallenge, account.id);
     const headed = process.env.SCRAPER_HEADLESS === "false";
     if (headed && (await waitForManualResolution(page, postLoginChallenge))) {
-      await browserSession.saveStorageState();
+      await session.saveStorageState();
       logger.info("Challenge resolved manually, session saved");
       return page;
     }
@@ -149,7 +150,7 @@ export async function ensureAuthenticated() {
     throw new Error("Login submitted but authenticated dashboard was not detected. Check credentials / selectors.");
   }
 
-  await browserSession.saveStorageState();
-  logger.info("Login successful, session saved");
+  await session.saveStorageState();
+  logger.info("Login successful, session saved", { account: account.name });
   return page;
 }

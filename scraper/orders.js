@@ -1,51 +1,27 @@
 import { navigateToOrdersSection, extractVisibleOrders } from "./dashboard.js";
-import { advancePagination } from "./pagination.js";
 import { logger } from "../utils/logger.js";
 
-// Defense-in-depth against a runaway pagination loop (e.g. a "Next" control
-// that doesn't actually page the table) — advancePagination()'s own content
-// fingerprint check is the primary guard; this is the hard ceiling.
-const MAX_PAGES_SAFETY_LIMIT = 200;
-
-/**
- * Walks every page of the Orders/Commission table via the UI's own
- * pagination and returns every record found (spec section 8/30, initial
- * historical sync). Idempotent upsert downstream means calling this again
- * is always safe.
- */
-export async function scrapeAllOrders(page) {
+// This reporting workflow intentionally uses only the currently visible
+// UpPromote table (configured to its maximum visible page size, typically 100).
+// No pagination is attempted because the user only needs the latest visible
+// rows for each account.
+export async function scrapeAllOrders(page, parseOptions = {}) {
   await navigateToOrdersSection(page);
+  const records = await extractVisibleOrders(page, parseOptions);
+  logger.info("Scraped current orders page", {
+    rowsFound: records.length,
+    maxRows: 100,
+  });
 
-  const all = [];
-  const seenIds = new Set();
-  let pageIndex = 1;
-
-  while (pageIndex <= MAX_PAGES_SAFETY_LIMIT) {
-    const records = await extractVisibleOrders(page);
-    let newOnThisPage = 0;
-    for (const record of records) {
-      if (!seenIds.has(record.sourceOrderId)) {
-        seenIds.add(record.sourceOrderId);
-        all.push(record);
-        newOnThisPage++;
-      }
-    }
-    logger.info("Scraped orders page", { pageIndex, rowsFound: records.length, newOnThisPage });
-
-    const advanced = await advancePagination(page);
-    if (!advanced) break;
-    pageIndex++;
-  }
-
-  return all;
+  return {
+    records: records.slice(0, 100),
+    pagesScraped: 1,
+    paginationComplete: true,
+    stopReason: "single-page-100-row-mode",
+  };
 }
 
-/**
- * Reads only the currently visible view (first page / top of the table) for
- * continuous live monitoring — new orders surface here without walking the
- * full history on every poll (spec section 9/10).
- */
-export async function scrapeCurrentSnapshot(page) {
+export async function scrapeCurrentSnapshot(page, parseOptions = {}) {
   await navigateToOrdersSection(page);
-  return extractVisibleOrders(page);
+  return extractVisibleOrders(page, parseOptions);
 }
