@@ -1,0 +1,212 @@
+{
+  "cookies": [
+    {
+      "name": "_GRECAPTCHA",
+      "value": "09AKhCRwgGybxZpkS5tA65x49kZr-SGkk3PZo_Kk2kqj0e45sRkYwCCFJ444Fba2NBAcOMqedyb6lui0hV4CsGeO0",
+      "domain": "www.recaptcha.net",
+      "path": "/recaptcha",
+      "expires": 1806484980.115161,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_gcl_au",
+      "value": "1.1.1253790305.1790921820",
+      "domain": ".uppromote.com",
+      "path": "/",
+      "expires": 1798697820,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_gid",
+      "value": "GA1.2.705661289.1790921820",
+      "domain": ".uppromote.com",
+      "path": "/",
+      "expires": 1791019852,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "CLID",
+      "value": "34e96400e5da46949ca71fd57b0eb1a2.20261002.20271002",
+      "domain": "www.clarity.ms",
+      "path": "/",
+      "expires": 1822457820.715805,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_clck",
+      "value": "1gvx924%5E2%5Eg9y%5E0%5E2466",
+      "domain": ".uppromote.com",
+      "path": "/",
+      "expires": 1822457821,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "IDE",
+      "value": "AHWqTUni0fFo3Sc2h9J-97PWAJsQ2T9MNmA6nlv62B6oQMngCz8Ap68xMls9L-Gh",
+      "domain": ".doubleclick.net",
+      "path": "/",
+      "expires": 1825481822.189348,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MUID",
+      "value": "35D071E5C034666119346603C15967F3",
+      "domain": ".bing.com",
+      "path": "/",
+      "expires": 1824617823.719223,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MR",
+      "value": "0",
+      "domain": ".c.bing.com",
+      "path": "/",
+      "expires": 1791526623.719357,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "SRM_B",
+      "value": "35D071E5C034666119346603C15967F3",
+      "domain": ".c.bing.com",
+      "path": "/",
+      "expires": 1824617823.719409,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "SM",
+      "value": "C",
+      "domain": ".c.clarity.ms",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MUID",
+      "value": "35D071E5C034666119346603C15967F3",
+      "domain": ".clarity.ms",
+      "path": "/",
+      "expires": 1824617824.247098,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MR",
+      "value": "0",
+      "domain": ".c.clarity.ms",
+      "path": "/",
+      "expires": 1791526624.24717,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_gat_gtag_UA_53113273_30",
+      "value": "1",
+      "domain": ".uppromote.com",
+      "path": "/",
+      "expires": 1790933511,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_ga_5RGWXF3HYE",
+      "value": "GS2.1.s1790932985$o2$g1$t1790933452$j59$l0$h0",
+      "domain": ".uppromote.com",
+      "path": "/",
+      "expires": 1825493452.050117,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_ga",
+      "value": "GA1.2.1326897027.1790921820",
+      "domain": ".uppromote.com",
+      "path": "/",
+      "expires": 1825493452.067512,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_clsk",
+      "value": "nbthn8%5E1790933453206%5E2%5E1%5Eu.clarity.ms%2Fcollect",
+      "domain": ".uppromote.com",
+      "path": "/",
+      "expires": 1791019853,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "XSRF-TOKEN",
+      "value": "eyJpdiI6IktrbXZ6QUFcL3F1VFNZZlwvTTlMOFZ3Zz09IiwidmFsdWUiOiJJUHJEOE01T3ZNcUlGQ0hXTnNYaDdQWHF5VjNLUlREUEwwRDN0VzNxMzRvZGk2Qmx2Z1l4eGpkTUF0eTJOcE9YIiwibWFjIjoiYTFmYWQzZmU3YmJlODNjMGJmMTlkMmI0ZjM0ODMyMmM1NDIwYTEyMDhlYjU5ZjQ2MzM0MDM3MmI4Zjg1NDEzMCJ9",
+      "domain": "af.uppromote.com",
+      "path": "/",
+      "expires": 1790976654.574695,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "laravel_session",
+      "value": "eyJpdiI6IndLRVp5MDZLZmU2MGVkUW5wMzdRbXc9PSIsInZhbHVlIjoiejlvTVlYOXljNnZvMzB1N2FUUlVEM2M5SEVLMGdqXC9jMWlndHhlbFR6eFZDYUFNb3V0ZmxaTUNna1wvempCdFg1QWlQS2lLQlwvckJYTGVaWno4U1BleVMrektkaXBUY3NxUWVyUTl2dVpUakk1RzNIamFhZU82aUFLMWZYeWF4RTgiLCJtYWMiOiI4ZWVkNWE4YmFlOWVjM2Y2MWI2ZjY2MmFlN2Y3MWYzOTY1MWVmYWQ5YTk5ZWY3ZTk5OTc5MjVlMzNjNjk5YjQ1In0%3D",
+      "domain": "af.uppromote.com",
+      "path": "/",
+      "expires": 1790976654.575011,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://af.uppromote.com",
+      "localStorage": [
+        {
+          "name": "_grecaptcha",
+          "value": "09AKhCRwjXahCzJZjFM-C26EyBV6cwEdLx4QT3Y-K15113ODKXMVjsMITOpiyXiPp1nl5TtAtSIrUF2T_2yD1-KT6Pq6LMfxnnPzq0-h2Su7gOq09UhymLeC3NFdn9yyvh"
+        },
+        {
+          "name": "_gcl_ls",
+          "value": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"timeouts\":0,\"errors\":0,\"eopCount\":0,\"creationTimeMs\":1790921820287},\"expires\":1798697820287},\"gsid_dc\":{\"value\":{\"joinId\":\"qmquM3YjJzPpp35awCXnSCaolte8H0ND_Q\",\"lastJoinedTimeMs\":1790933451021},\"expires\":1790933751021}}"
+        }
+      ]
+    },
+    {
+      "origin": "https://www.recaptcha.net",
+      "localStorage": [
+        {
+          "name": "rc::a",
+          "value": "bTlqa25tMWNlYnVhMQ=="
+        },
+        {
+          "name": "rc::f",
+          "value": "0aAMUGZVo5jNic75jMyWbEdD8YauWMDYmOdP70P8NAMswSDyMLCdFmNmptmO6lQPgx7gR38DE"
+        }
+      ]
+    }
+  ]
+}

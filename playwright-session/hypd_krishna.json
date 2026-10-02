@@ -1,0 +1,222 @@
+{
+  "cookies": [
+    {
+      "name": "_GRECAPTCHA",
+      "value": "09AKhCRwgsLywQldVCs5mNLoa-2adydXNEainWAUDr1_FCf0Z9HStASKKjUqBCTdgGDYFDewUunVJ4et_rZ-NYTxw",
+      "domain": "www.recaptcha.net",
+      "path": "/recaptcha",
+      "expires": 1806484822.956166,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_gcl_au",
+      "value": "1.1.1197524257.1790932854",
+      "domain": ".uppromote.com",
+      "path": "/",
+      "expires": 1798708854,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_gid",
+      "value": "GA1.2.2040520991.1790932854",
+      "domain": ".uppromote.com",
+      "path": "/",
+      "expires": 1791019812,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "IDE",
+      "value": "AHWqTUnRDCe1jo8IO_vNLgAHOfVGSOJhf1ktE29CM4P5xuX1JQp8RjwEF4VVdMsa",
+      "domain": ".doubleclick.net",
+      "path": "/",
+      "expires": 1825492856.006633,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "CLID",
+      "value": "3ffa2842be6046b7a9e12bdefaf0e0e2.20261002.20271002",
+      "domain": "www.clarity.ms",
+      "path": "/",
+      "expires": 1822468856.777524,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_clck",
+      "value": "t5wskw%5E2%5Eg9y%5E0%5E2466",
+      "domain": ".uppromote.com",
+      "path": "/",
+      "expires": 1822468857,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "MUID",
+      "value": "1EE4ABCD38216D851D82BC2B394C6C1F",
+      "domain": ".bing.com",
+      "path": "/",
+      "expires": 1824628858.000685,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MR",
+      "value": "0",
+      "domain": ".c.bing.com",
+      "path": "/",
+      "expires": 1791537658.000843,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "SRM_B",
+      "value": "1EE4ABCD38216D851D82BC2B394C6C1F",
+      "domain": ".c.bing.com",
+      "path": "/",
+      "expires": 1824628858.000899,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "SM",
+      "value": "C",
+      "domain": ".c.clarity.ms",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MUID",
+      "value": "1EE4ABCD38216D851D82BC2B394C6C1F",
+      "domain": ".clarity.ms",
+      "path": "/",
+      "expires": 1824628858.192022,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MR",
+      "value": "0",
+      "domain": ".c.clarity.ms",
+      "path": "/",
+      "expires": 1791537658.192111,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "ANONCHK",
+      "value": "0",
+      "domain": ".c.clarity.ms",
+      "path": "/",
+      "expires": 1790933458.192152,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_gat_gtag_UA_53113273_30",
+      "value": "1",
+      "domain": ".uppromote.com",
+      "path": "/",
+      "expires": 1790933471,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_ga_5RGWXF3HYE",
+      "value": "GS2.1.s1790932854$o1$g1$t1790933412$j59$l0$h0",
+      "domain": ".uppromote.com",
+      "path": "/",
+      "expires": 1825493412.414298,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_ga",
+      "value": "GA1.2.1736191758.1790932854",
+      "domain": ".uppromote.com",
+      "path": "/",
+      "expires": 1825493412.425083,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_clsk",
+      "value": "ngrnns%5E1790933413027%5E2%5E1%5Ej.clarity.ms%2Fcollect",
+      "domain": ".uppromote.com",
+      "path": "/",
+      "expires": 1791019813,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "XSRF-TOKEN",
+      "value": "eyJpdiI6ImlXNnFyUHdjczRkbDNETVRoTzFxcHc9PSIsInZhbHVlIjoiWUVjTTlWMUgyT3M3RlRET3QyM3Vsak5xUzFuYjZ5dElEY2dMTU1sbnhPXC95M21mV21xRWFCc1dVMnB2bHVIRnIiLCJtYWMiOiJmYTA5NWU0NmQyMDE2ZGIyNzIxYjk5Zjc5MDRmNDcwZTE0MDg3YjlmYmVlNjc4MTk5YWM4MTFlMjlhMWQ0OGUwIn0%3D",
+      "domain": "af.uppromote.com",
+      "path": "/",
+      "expires": 1790976613.92061,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "laravel_session",
+      "value": "eyJpdiI6IlwvUHJxOHJkWTNxZWV6a1Z0Z29rVlRnPT0iLCJ2YWx1ZSI6IlNqQlgrYnJHbTI3Vis5RE03QjlDRWlkRWFqOWhyTjlXSFhLNWRIRGFMN2tkbEc0T0xCQ25obmhaRjRoNXB1ZWpsNlVKakR3RDBMSm13SVlXZDdWQllGQ01BZCt2b0ZSQmxrU2Q1aWhcL3VXN0dpejJwdWxRTDJaZmZaXC9xV05CdzMiLCJtYWMiOiIwZWUwM2UyNDVhMmVkZTEyNTBkYTlkMGRkYzYwMDI4ODJmMGFiNTZlMmZjNzQyMjM1ZGIxYzI3MjcwMTg0ZDVhIn0%3D",
+      "domain": "af.uppromote.com",
+      "path": "/",
+      "expires": 1790976613.920785,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://af.uppromote.com",
+      "localStorage": [
+        {
+          "name": "_grecaptcha",
+          "value": "09AKhCRwjpkSbPIyZIc5A3njlrM6Lsz-WCGLQnozHbi1U9zjITk-o3Q6E6V12BG_JmX20y2n7SisY9Nqxut35qv19kc8HMkWQeWaP2Rx_K7xN04GH7XBhcTnkP_khXdP0F"
+        },
+        {
+          "name": "_gcl_ls",
+          "value": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"timeouts\":0,\"errors\":0,\"eopCount\":0,\"creationTimeMs\":1790932854408},\"expires\":1798708854408},\"gsid_dc\":{\"value\":{\"joinId\":\"ktzPoPA7z2-5wJSUF0a8dJyN0sKMvket0A\",\"lastJoinedTimeMs\":1790933411338},\"expires\":1790933711338}}"
+        }
+      ]
+    },
+    {
+      "origin": "https://www.recaptcha.net",
+      "localStorage": [
+        {
+          "name": "rc::a",
+          "value": "ZWFjbHp0NXRpZjQ4"
+        },
+        {
+          "name": "rc::f",
+          "value": "0aAMUGZVp8lwcjnN5fwzPTK-ta8kVauIYT_MX2B6xiUCnPAYVzLkX1yxYjgmnl-elWagvr2dU"
+        }
+      ]
+    }
+  ]
+}

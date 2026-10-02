@@ -1,0 +1,202 @@
+{
+  "cookies": [
+    {
+      "name": "_GRECAPTCHA",
+      "value": "09AKhCRwiWlJShzIq_e7Skj88zzcGxKq6GUpM1oSwSDebSG-d1W0zpMmJ-m16UZjZ91oPZ5osjjSfSwUfX_6KNr44",
+      "domain": "www.recaptcha.net",
+      "path": "/recaptcha",
+      "expires": 1806470032.468812,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_gcl_au",
+      "value": "1.1.1851309307.1790918047",
+      "domain": ".uppromote.com",
+      "path": "/",
+      "expires": 1798694047,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_gid",
+      "value": "GA1.2.1835910321.1790918047",
+      "domain": ".uppromote.com",
+      "path": "/",
+      "expires": 1791004935,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "CLID",
+      "value": "9a0dc27d2a924f89b222597bcab76280.20261002.20271002",
+      "domain": "www.clarity.ms",
+      "path": "/",
+      "expires": 1822454047.051321,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_clck",
+      "value": "nz830h%5E2%5Eg9y%5E0%5E2466",
+      "domain": ".uppromote.com",
+      "path": "/",
+      "expires": 1822454047,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "SM",
+      "value": "T",
+      "domain": ".c.clarity.ms",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MUID",
+      "value": "1767C109CEB466EC1CD7D6EFCAB4680A",
+      "domain": ".clarity.ms",
+      "path": "/",
+      "expires": 1824614047.856272,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MUID",
+      "value": "2F6F02FCE60F649920E3151AE770653E",
+      "domain": ".bing.com",
+      "path": "/",
+      "expires": 1824614049.251318,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MR",
+      "value": "0",
+      "domain": ".c.bing.com",
+      "path": "/",
+      "expires": 1791522849.251408,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "SRM_B",
+      "value": "2F6F02FCE60F649920E3151AE770653E",
+      "domain": ".c.bing.com",
+      "path": "/",
+      "expires": 1824614049.251427,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "IDE",
+      "value": "AHWqTUk5mA9yagiP15quVAOsQQKmLDEDdVw4P23084l-EFcXEPYNU9KH5XisXiqR",
+      "domain": ".doubleclick.net",
+      "path": "/",
+      "expires": 1825478048.891862,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_gat_gtag_UA_53113273_30",
+      "value": "1",
+      "domain": ".uppromote.com",
+      "path": "/",
+      "expires": 1790918595,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_ga_5RGWXF3HYE",
+      "value": "GS2.1.s1790918046$o1$g1$t1790918535$j60$l0$h0",
+      "domain": ".uppromote.com",
+      "path": "/",
+      "expires": 1825478535.39524,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_ga",
+      "value": "GA1.2.1500840156.1790918047",
+      "domain": ".uppromote.com",
+      "path": "/",
+      "expires": 1825478535.404841,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_clsk",
+      "value": "1ih19p%5E1790918536614%5E2%5E1%5Ee.clarity.ms%2Fcollect",
+      "domain": ".uppromote.com",
+      "path": "/",
+      "expires": 1791004936,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "XSRF-TOKEN",
+      "value": "eyJpdiI6ImJKSFpyUjFaY1VkbnlWeVM4b3JWT2c9PSIsInZhbHVlIjoiajRIV3ZPaCtOeWhiQ1dnajNBUEsyZk1UQmZuWjk1YkVKWWFlc3lITXFLdkpPQUVoNUZsNWRUYjU0SnBDU2kzKyIsIm1hYyI6IjE1MjU5ZTc1OTA4ZGMxNGE4ZmUwOTM0ODFiYTVkMmZjZjRmMjU4MzI0Y2U3YzhmYzI0YzZkNWY3ODJjNGIwZDAifQ%3D%3D",
+      "domain": "af.uppromote.com",
+      "path": "/",
+      "expires": 1790961738.003315,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "laravel_session",
+      "value": "eyJpdiI6Ikp0TFFqTkdqMHlNMFUxSjF6NE9MUFE9PSIsInZhbHVlIjoid0JoN2dMUFZiYmdnRHMyazJIS2lDUXozWGpNeTUrb0ZtYnY2cG5GdmxiTDhKZFFUZEx6SnExOURPYzFOVHU3ZHZkUVVzVnRnME1yNzVrNVJ0enFXUGJkampwWTNxUFdlUnU0UmVlTlVPck81eDJDK25mcGdUYm95alBUN3hzTlUiLCJtYWMiOiJhODk3NzQ5OWNhNGE3ODZjODNhZGNkODYxMjE2NWU5MmUzZWViMGQ1NGE5NzM5YTYwNDk5MjBlZTNkNGVlMjUwIn0%3D",
+      "domain": "af.uppromote.com",
+      "path": "/",
+      "expires": 1790961738.003666,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://af.uppromote.com",
+      "localStorage": [
+        {
+          "name": "_grecaptcha",
+          "value": "09AKhCRwgRI4AaGAMQ0xVVn77YO45c5UhH_YhCRPnDGUX5Gx2LiOvkWBkLHYvnIGJmlRX-WJDkAykT3WX40FivKALITzqD-gbiQXznOOCna8wohkEVD_8Q9ObYM4ETuMUO"
+        },
+        {
+          "name": "_gcl_ls",
+          "value": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"timeouts\":0,\"errors\":0,\"eopCount\":0,\"creationTimeMs\":1790918046673},\"expires\":1798694046673},\"gsid_dc\":{\"value\":{\"joinId\":\"OoK-Q0-TCo0mdPNM83EVqz2FLjgXwoxRPw\",\"lastJoinedTimeMs\":1790918534862},\"expires\":1790918834862}}"
+        }
+      ]
+    },
+    {
+      "origin": "https://www.recaptcha.net",
+      "localStorage": [
+        {
+          "name": "rc::a",
+          "value": "cHhjcXRrMWh5eG50eg=="
+        },
+        {
+          "name": "rc::f",
+          "value": "0aAFzLYhiEDIx22MvpqwWZhRI8kE3wnIpscdV-KXBWwp-8tLw3a-2yshzLxX4l00Btdc3eAi8"
+        }
+      ]
+    }
+  ]
+}

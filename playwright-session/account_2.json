@@ -1,0 +1,35 @@
+{
+  "cookies": [
+    {
+      "name": "XSRF-TOKEN",
+      "value": "eyJpdiI6IllYMWZtaXV4MWVNTDRiM2N2QnZIbkE9PSIsInZhbHVlIjoiZmhiWjN1UzdIck9yaVFhZlZZb25jVlg2a0xRd3UzZE13QVlhZXVoSTdOVXk4cm82Nk1cL2lTaGp0N2V5RUdNVTIiLCJtYWMiOiI0MTI4YjVmZDA5MDhlOGQwYmJhNTA0OGNkYzc1ZDhlNjgwY2Q1OTMzNjk2YWUzZDYzMzY3YjFiZjE2MGEwODUyIn0%3D",
+      "domain": "af.uppromote.com",
+      "path": "/",
+      "expires": 1790951279.784939,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "laravel_session",
+      "value": "eyJpdiI6ImZVSUUwWjBMdk5CbzVcL0l5bVJxWXVRPT0iLCJ2YWx1ZSI6IlF3ZkxyMFM3cjdqd2VUVUpZMU5WWVc0YlhVTXJ1VUhnbzVkXC82eDdhMG9cL3pzQ1ViUnZoMG5aOThxcUpTY2lWcFN1TFR6N2xvUGRPWkJSMExBRVFUVFZYRmhQemUzd2tpNWdaUjNBQzd4OEVQZjVETGNsXC9TM29DVnBxS0V3a01nIiwibWFjIjoiN2I3MDBlOWQ2Y2M2Yjc4ZTNjYzg1MzE5NDA2YmIyOGIyYTJkN2RiODA1MTg4ODAyNjY2Y2EyZjQzODBmZThlNCJ9",
+      "domain": "af.uppromote.com",
+      "path": "/",
+      "expires": 1790951279.785032,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://www.recaptcha.net",
+      "localStorage": [
+        {
+          "name": "rc::a",
+          "value": "OWMzMHMyNGdrOHBm"
+        }
+      ]
+    }
+  ]
+}

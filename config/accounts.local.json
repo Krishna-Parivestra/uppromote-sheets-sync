@@ -1,0 +1,173 @@
+[
+  {
+    "id": "hypd_dilsher",
+    "name": "HYPD - Dilsher",
+    "url": "https://af.uppromote.com/hypdshop/dashboard",
+    "email": "dilsher@parivestra.com",
+    "password": ":xE5l\"yk0A05",
+    "storageStatePath": "./playwright-session/hypd_dilsher.json",
+    "commissionRate": "",
+    "allowEmptyFullSync": false
+  },
+  {
+    "id": "hypd_aryan",
+    "name": "HYPD - Aryan",
+    "url": "https://af.uppromote.com/hypdshop/dashboard",
+    "email": "aryan@parivestra.com",
+    "password": "wuqbVNb1rvwW",
+    "storageStatePath": "./playwright-session/hypd_aryan.json",
+    "commissionRate": "",
+    "allowEmptyFullSync": false
+  },
+  {
+    "id": "hypd_aastha",
+    "name": "HYPD - Aastha",
+    "url": "https://af.uppromote.com/hypdshop/dashboard",
+    "email": "aastha@parivestra.com",
+    "password": "MRiBRfFNZLUO4cw",
+    "storageStatePath": "./playwright-session/hypd_aastha.json",
+    "commissionRate": "",
+    "allowEmptyFullSync": false
+  },
+  {
+    "id": "hypd_sayan",
+    "name": "HYPD - Sayan",
+    "url": "https://af.uppromote.com/hypdshop/dashboard",
+    "email": "sayan@parivestra.com",
+    "password": "0SJjJGzb7i3tEe",
+    "storageStatePath": "./playwright-session/hypd_sayan.json",
+    "commissionRate": "",
+    "allowEmptyFullSync": false
+  },
+  {
+    "id": "hypd_ayush",
+    "name": "HYPD - Ayush",
+    "url": "https://af.uppromote.com/hypdshop/dashboard",
+    "email": "ayush@parivestra.com",
+    "password": "SwNRiYdfrGuK",
+    "storageStatePath": "./playwright-session/hypd_ayush.json",
+    "commissionRate": "",
+    "allowEmptyFullSync": false
+  },
+  {
+    "id": "hypd_prathmesh",
+    "name": "HYPD - Prathmesh",
+    "url": "https://af.uppromote.com/hypdshop/dashboard",
+    "email": "prathmesh@parivestra.com",
+    "password": "NJrQG6bd572",
+    "storageStatePath": "./playwright-session/hypd_prathmesh.json",
+    "commissionRate": "",
+    "allowEmptyFullSync": false
+  },
+  {
+    "id": "hypd_team",
+    "name": "HYPD - Team",
+    "url": "https://af.uppromote.com/hypdshop/dashboard",
+    "email": "team@parivestra.com",
+    "password": "Cvv3uj9Nve7Pv",
+    "storageStatePath": "./playwright-session/hypd_team.json",
+    "commissionRate": "",
+    "allowEmptyFullSync": true
+  },
+  {
+    "id": "hypd_reet",
+    "name": "HYPD - Reet",
+    "url": "https://af.uppromote.com/hypdshop/dashboard",
+    "email": "reet@parivestra.com",
+    "password": "Parivestra1234",
+    "storageStatePath": "./playwright-session/hypd_reet.json",
+    "commissionRate": "",
+    "allowEmptyFullSync": false
+  },
+  {
+    "id": "hypd_krishna",
+    "name": "HYPD - Krishna",
+    "url": "https://af.uppromote.com/hypdshop/dashboard",
+    "email": "krishna@parivestra.com",
+    "password": ":xE5l\"yk0A05",
+    "storageStatePath": "./playwright-session/hypd_krishna.json",
+    "commissionRate": "",
+    "allowEmptyFullSync": false
+  },
+  {
+    "id": "hypd_sayan_socialnorm",
+    "name": "HYPD - Sayan (SocialNorm)",
+    "url": "https://af.uppromote.com/hypdshop/dashboard",
+    "email": "sayan@socialnorm.co",
+    "password": "yduYi89/KgTa?Uf",
+    "storageStatePath": "./playwright-session/hypd_sayan_socialnorm.json",
+    "commissionRate": "",
+    "allowEmptyFullSync": false
+  },
+
+  {
+    "id": "tomhill_reet",
+    "name": "TomHill - Reet",
+    "url": "https://af.uppromote.com/10savr-bm/dashboard",
+    "email": "reet@parivestra.com",
+    "password": "ReetParivestra1",
+    "storageStatePath": "./playwright-session/tomhill_reet.json",
+    "commissionRate": "",
+    "allowEmptyFullSync": false
+  },
+  {
+    "id": "tomhill_aryan",
+    "name": "TomHill - Aryan",
+    "url": "https://af.uppromote.com/10savr-bm/dashboard",
+    "email": "aryan@parivestra.com",
+    "password": "AryanParivestra1",
+    "storageStatePath": "./playwright-session/tomhill_aryan.json",
+    "commissionRate": "",
+    "allowEmptyFullSync": false
+  },
+  {
+    "id": "tomhill_krishna",
+    "name": "TomHill - Krishna",
+    "url": "https://af.uppromote.com/10savr-bm/dashboard",
+    "email": "krishna@parivestra.com",
+    "password": "https://meet.google.com/mno-rhxm-gja",
+    "storageStatePath": "./playwright-session/tomhill_krishna.json",
+    "commissionRate": "",
+    "allowEmptyFullSync": false
+  },
+  {
+    "id": "tomhill_team",
+    "name": "TomHill - Team",
+    "url": "https://af.uppromote.com/10savr-bm/dashboard",
+    "email": "team@parivestra.com",
+    "password": "TeamParivestra1",
+    "storageStatePath": "./playwright-session/tomhill_team.json",
+    "commissionRate": "",
+    "allowEmptyFullSync": true
+  },
+  {
+    "id": "tomhill_sayan",
+    "name": "TomHill - Sayan",
+    "url": "https://af.uppromote.com/10savr-bm/dashboard",
+    "email": "sayan@parivestra.com",
+    "password": "SayanParivestra1",
+    "storageStatePath": "./playwright-session/tomhill_sayan.json",
+    "commissionRate": "",
+    "allowEmptyFullSync": false
+  },
+  {
+    "id": "tomhill_dilsher",
+    "name": "TomHill - Dilsher",
+    "url": "https://af.uppromote.com/10savr-bm/dashboard",
+    "email": "dilsher@parivestra.com",
+    "password": "DilsherParivestra1",
+    "storageStatePath": "./playwright-session/tomhill_dilsher.json",
+    "commissionRate": "",
+    "allowEmptyFullSync": false
+  },
+  {
+    "id": "tomhill_ayush",
+    "name": "TomHill - Ayush",
+    "url": "https://af.uppromote.com/10savr-bm/dashboard",
+    "email": "ayush@parivestra.com",
+    "password": "AyushParivestra1",
+    "storageStatePath": "./playwright-session/tomhill_ayush.json",
+    "commissionRate": "",
+    "allowEmptyFullSync": false
+  }
+]

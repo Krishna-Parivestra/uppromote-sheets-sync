@@ -1,73 +1,25 @@
-# UpPromote -> Google Sheets (Step 4: Simple Account Replacement)
+# GitHub deployment patch for UpPromote → Google Sheets
 
-This version is intentionally simple for the reporting use case:
+This patch changes deployment from one oversized GitHub secret to several smaller encrypted bundles. The bundles contain the account credentials and Playwright storage state required for unattended cloud runs.
 
-- Up to 100 rows are scraped per UpPromote account.
-- Each account has its own login/session.
-- Every row includes account_id and account_name.
-- Every full sync replaces the previous rows for that account with the newest snapshot.
-- Other accounts' rows are preserved.
-- Empty/invalid snapshots are refused by default, so a scraper failure does not erase an account's good data.
-- No pagination is used.
-- Google Apps Script is the only Google-side component; no Google Cloud hosting is required.
-
-## Local multi-account configuration
-
-Create `config/accounts.local.json` (never commit it):
-
-```json
-[
-  {
-    "id": "hypdshop",
-    "name": "HYPD Shop",
-    "url": "https://af.uppromote.com/hypdshop/dashboard",
-    "email": "YOUR_EMAIL",
-    "password": "YOUR_PASSWORD",
-    "storageStatePath": "./playwright-session/storage-state.json",
-    "commissionRate": "",
-    "allowEmptyFullSync": false
-  },
-  {
-    "id": "account_2",
-    "name": "SECOND ACCOUNT",
-    "url": "https://af.uppromote.com/ACCOUNT_2/dashboard",
-    "email": "SECOND_EMAIL",
-    "password": "SECOND_PASSWORD",
-    "storageStatePath": "./playwright-session/account_2.json",
-    "commissionRate": "",
-    "allowEmptyFullSync": false
-  }
-]
-```
-
-Use a unique `id` and `storageStatePath` for every account.
-
-## Google Apps Script properties
-
-In the spreadsheet's Apps Script project, create these Script Properties:
-
-- `SPREADSHEET_ID`: the target spreadsheet ID
-- `SYNC_SECRET`: a private secret shared with the Node runner
-- `TAB_NAME`: `RAW_ORDERS`
-
-Deploy the Apps Script as a web app and put its `/exec` URL into `GOOGLE_APPS_SCRIPT_URL`.
-
-## Local test
+## Local preparation
 
 ```powershell
-npm install
-npm run check
-npm run sync
+Set-ExecutionPolicy -Scope Process Bypass
+.\scripts\prepare-github-bundles.ps1
 ```
 
-For the first login of a new account, use `SCRAPER_HEADLESS=false` so the authorized user can complete any CAPTCHA/MFA challenge manually. After the session is saved, switch back to `true`.
+The script copies one bundle at a time to the clipboard and tells you which GitHub secret name to create. It uses a 44,000-byte safety limit per bundle, below GitHub's 48 KiB secret limit.
 
-## Expected replacement behavior
+## GitHub secrets
 
-If HYPD Shop has 100 rows in the sheet and the next run contains 100 rows:
+Create the bundle secrets reported by the script, plus:
 
-- old HYPD rows are removed
-- newest HYPD rows are written
-- rows belonging to other accounts stay untouched
+- `GOOGLE_APPS_SCRIPT_URL`
+- `GOOGLE_APPS_SCRIPT_SECRET`
 
-If an order's commission/status changes, the newest row automatically replaces the old one. No duplicate-history logic is needed for the reporting sheet.
+The workflow accepts up to 8 bundle secrets out of the box. More can be added later by extending the workflow if the account set grows enough to require additional bundles.
+
+## Schedule
+
+The workflow runs at 00:15, 05:15, 10:15, 15:15, and 20:15 Asia/Kolkata. This is five scheduled runs per day; a conventional daily cron cannot represent a mathematically exact rolling five-hour interval across midnight.
