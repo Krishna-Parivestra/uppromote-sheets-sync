@@ -1,0 +1,19 @@
+{
+  "name": "uppromote-sheets-sync",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Cloud-ready UpPromote scraper that upserts normalized orders into Google Sheets.",
+  "main": "runner.js",
+  "scripts": {
+    "sync": "node runner.js",
+    "inspect": "node scraper/inspect.js",
+    "check": "node --check runner.js && node --check sheets/writer.js && node --check sync/syncEngine.js && node --check scraper/auth.js && node --check scraper/browser.js && node --check scraper/dashboard.js && node --check scraper/orders.js && node --check scraper/pagination.js && node --check scraper/parser.js && node --check scraper/selectors.js && node --check scraper/commission.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "googleapis": "^182.0.0",
+    "playwright": "^1.55.0",
+    "winston": "^3.18.3"
+  }
+}
