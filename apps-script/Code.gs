@@ -1,36 +1,18 @@
 const HEADERS = [
-  "account_id",
-  "account_name",
-  "source_order_id",
-  "source",
-  "referral_id",
-  "order_date",
-  "product_name",
-  "quantity",
-  "order_amount",
-  "commission_amount",
-  "commission_status",
-  "commission_status_raw",
-  "order_status",
-  "order_status_raw",
-  "customer_name",
-  "customer_email",
-  "reference_id",
-  "last_synced_at",
-  "raw_snapshot_json",
+  "account_id","account_name","source_order_id","source","referral_id","order_date","product_name","quantity",
+  "order_amount","commission_amount","commission_status","commission_status_raw","order_status","order_status_raw",
+  "customer_name","customer_email","reference_id","last_synced_at","raw_snapshot_json",
 ];
 
 const LEGACY_HEADERS = [
-  "source_order_id", "source", "referral_id", "order_date", "product_name", "quantity",
-  "order_amount", "commission_amount", "commission_status", "commission_status_raw",
-  "order_status", "order_status_raw", "customer_name", "customer_email", "reference_id",
-  "last_synced_at", "raw_snapshot_json",
+  "source_order_id","source","referral_id","order_date","product_name","quantity","order_amount","commission_amount",
+  "commission_status","commission_status_raw","order_status","order_status_raw","customer_name","customer_email",
+  "reference_id","last_synced_at","raw_snapshot_json",
 ];
 
 const ACCOUNT_ID_INDEX = 0;
 const SOURCE_ORDER_ID_INDEX = 2;
 const COLUMN_COUNT = HEADERS.length;
-const STAGING_TAB = "__SYNC_STAGING";
 const WRITE_CHUNK_SIZE = 1000;
 
 function jsonResponse(payload) {
@@ -48,15 +30,21 @@ function getConfig() {
 }
 
 function doGet() {
-  return jsonResponse({ ok: true, service: "uppromote-sheets-sync", version: 4 });
+  return jsonResponse({ ok: true, service: "uppromote-sheets-sync", version: 5, mode: "full-rebuild" });
 }
 
 function doPost(e) {
   try {
     const config = getConfig();
-    const body = JSON.parse(e?.postData?.contents || "{}");
+    const body = JSON.parse(e && e.postData && e.postData.contents ? e.postData.contents : "{}");
     if (body.secret !== config.secret) return jsonResponse({ ok: false, error: "Unauthorized" });
 
+    if (body.action === "replaceAllOrders") {
+      if (!Array.isArray(body.rows)) return jsonResponse({ ok: false, error: "rows must be an array" });
+      return jsonResponse({ ok: true, ...replaceAllRows_(config.spreadsheetId, config.tabName, body.rows, Boolean(body.allowEmpty)) });
+    }
+
+    // Kept for compatibility with older clients.
     if (body.action === "replaceAccountOrders") {
       if (!body.accountId) return jsonResponse({ ok: false, error: "accountId is required" });
       if (!Array.isArray(body.rows)) return jsonResponse({ ok: false, error: "rows must be an array" });
@@ -78,24 +66,23 @@ function doPost(e) {
 }
 
 function ensureMainHeader_(sheet) {
-  const headerWidth = Math.max(sheet.getLastColumn(), COLUMN_COUNT);
-  const header = sheet.getRange(1, 1, 1, headerWidth).getValues()[0] || [];
+  const width = Math.max(sheet.getLastColumn(), COLUMN_COUNT);
+  const header = sheet.getRange(1, 1, 1, width).getValues()[0] || [];
   const current = header.slice(0, COLUMN_COUNT);
-  const isCurrent = HEADERS.every((h, i) => current[i] === h);
-  if (isCurrent) return;
+  if (HEADERS.every((h, i) => current[i] === h)) return;
 
   const isLegacy = LEGACY_HEADERS.every((h, i) => current[i] === h);
   if (isLegacy) {
     const lastRow = sheet.getLastRow();
     const legacyRows = lastRow >= 2 ? sheet.getRange(2, 1, lastRow - 1, LEGACY_HEADERS.length).getValues() : [];
-    const migrated = legacyRows.map((oldRow) => {
+    const migrated = legacyRows.map(oldRow => {
       const row = new Array(COLUMN_COUNT).fill("");
-      row[ACCOUNT_ID_INDEX] = "legacy";
+      row[0] = "legacy";
       row[1] = "Legacy / Unassigned";
       for (let i = 0; i < oldRow.length; i++) row[i + 2] = oldRow[i];
       return row;
     });
-    sheet.clearContents();
+    sheet.getRange(1, 1, 1, sheet.getMaxColumns()).clearContent();
     sheet.getRange(1, 1, 1, COLUMN_COUNT).setValues([HEADERS]);
     if (migrated.length) writeChunks_(sheet, 2, migrated);
     return;
@@ -110,8 +97,8 @@ function ensureMainHeader_(sheet) {
 }
 
 function rowKey_(row) {
-  const accountId = String(row?.[ACCOUNT_ID_INDEX] ?? "").trim();
-  const orderId = String(row?.[SOURCE_ORDER_ID_INDEX] ?? "").trim();
+  const accountId = String(row && row[ACCOUNT_ID_INDEX] != null ? row[ACCOUNT_ID_INDEX] : "").trim();
+  const orderId = String(row && row[SOURCE_ORDER_ID_INDEX] != null ? row[SOURCE_ORDER_ID_INDEX] : "").trim();
   return accountId && orderId ? `${accountId}::${orderId}` : "";
 }
 
@@ -128,10 +115,9 @@ function formatDateColumns_(sheet, rowCount) {
   sheet.getRange(2, 18, rowCount, 1).setNumberFormat("yyyy-mm-dd hh:mm:ss");
 }
 
-function normalizeIncomingRow_(rawRow, accountId, seenKeys) {
+function normalizeFullRow_(rawRow, seenKeys) {
   if (!Array.isArray(rawRow) || rawRow.length < COLUMN_COUNT) return null;
   const row = rawRow.slice(0, COLUMN_COUNT);
-  if (String(row[ACCOUNT_ID_INDEX] ?? "").trim() !== accountId) return null;
   const key = rowKey_(row);
   if (!key || seenKeys.has(key)) return null;
   seenKeys.add(key);
@@ -139,11 +125,14 @@ function normalizeIncomingRow_(rawRow, accountId, seenKeys) {
 }
 
 /**
- * Replaces only one account's rows with the newest snapshot.
- * Other accounts are left untouched. The replacement is performed under a
- * script lock so two account runs cannot overwrite each other concurrently.
+ * FULL REBUILD MODE:
+ * 1. Validate/dedupe the complete incoming dataset.
+ * 2. Clear EVERY cell below row 1 across ALL columns.
+ * 3. Write the fresh dataset starting at row 2.
+ *
+ * Nothing is appended to the previous dataset.
  */
-function replaceAccountRows_(spreadsheetId, tabName, accountId, incomingRows, allowEmpty) {
+function replaceAllRows_(spreadsheetId, tabName, incomingRows, allowEmpty) {
   const lock = LockService.getScriptLock();
   lock.waitLock(30000);
   try {
@@ -152,58 +141,85 @@ function replaceAccountRows_(spreadsheetId, tabName, accountId, incomingRows, al
     ensureMainHeader_(sheet);
 
     const seenKeys = new Set();
-    const incoming = [];
+    const rows = [];
     for (const rawRow of incomingRows) {
-      const row = normalizeIncomingRow_(rawRow, accountId, seenKeys);
-      if (row) incoming.push(row);
+      const row = normalizeFullRow_(rawRow, seenKeys);
+      if (row) rows.push(row);
     }
 
-    if (incoming.length === 0 && !allowEmpty) {
-      throw new Error(`Refusing to replace account ${accountId} with an empty or invalid dataset`);
+    if (rows.length === 0 && !allowEmpty) {
+      throw new Error("Refusing to wipe sheet because the incoming dataset is empty or invalid");
     }
 
-    const lastRow = sheet.getLastRow();
-    const existing = lastRow >= 2
-      ? sheet.getRange(2, 1, lastRow - 1, COLUMN_COUNT).getValues()
-      : [];
-
-    const output = [];
-    let removedOld = 0;
-    let keptOtherAccounts = 0;
-
-    for (const row of existing) {
-      const existingAccountId = String(row?.[ACCOUNT_ID_INDEX] ?? "").trim();
-      if (existingAccountId === accountId) {
-        removedOld++;
-      } else {
-        output.push(row);
-        keptOtherAccounts++;
-      }
+    // THIS IS THE IMPORTANT CHANGE:
+    // Clear the entire data area, not just getLastRow()/20 columns.
+    const maxRows = sheet.getMaxRows();
+    const maxCols = sheet.getMaxColumns();
+    if (maxRows > 1 && maxCols > 0) {
+      sheet.getRange(2, 1, maxRows - 1, maxCols).clearContent();
     }
 
-    output.push(...incoming);
-
-    if (sheet.getLastRow() > 1) {
-      sheet.getRange(2, 1, sheet.getLastRow() - 1, COLUMN_COUNT).clearContent();
-    }
-    if (output.length) writeChunks_(sheet, 2, output);
-    formatDateColumns_(sheet, output.length);
+    if (rows.length) writeChunks_(sheet, 2, rows);
+    formatDateColumns_(sheet, rows.length);
 
     return {
       received: incomingRows.length,
-      accepted: incoming.length,
-      removedOld,
-      keptOtherAccounts,
-      written: incoming.length,
-      finalRowCount: output.length,
+      accepted: rows.length,
+      wipedRows: Math.max(maxRows - 1, 0),
+      wipedColumns: maxCols,
+      written: rows.length,
+      finalRowCount: rows.length,
+      mode: "full-rebuild",
     };
   } finally {
     lock.releaseLock();
   }
 }
 
-// Retained for compatibility with earlier deployments. New code uses
-// replaceAccountOrders_, not incremental upserts.
+function normalizeIncomingRow_(rawRow, accountId, seenKeys) {
+  if (!Array.isArray(rawRow) || rawRow.length < COLUMN_COUNT) return null;
+  const row = rawRow.slice(0, COLUMN_COUNT);
+  if (String(row[ACCOUNT_ID_INDEX] || "").trim() !== accountId) return null;
+  const key = rowKey_(row);
+  if (!key || seenKeys.has(key)) return null;
+  seenKeys.add(key);
+  return row;
+}
+
+function replaceAccountRows_(spreadsheetId, tabName, accountId, incomingRows, allowEmpty) {
+  const lock = LockService.getScriptLock();
+  lock.waitLock(30000);
+  try {
+    const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
+    const sheet = spreadsheet.getSheetByName(tabName) || spreadsheet.insertSheet(tabName);
+    ensureMainHeader_(sheet);
+    const seenKeys = new Set();
+    const incoming = [];
+    for (const rawRow of incomingRows) {
+      const row = normalizeIncomingRow_(rawRow, accountId, seenKeys);
+      if (row) incoming.push(row);
+    }
+    if (incoming.length === 0 && !allowEmpty) throw new Error(`Refusing to replace account ${accountId} with an empty or invalid dataset`);
+
+    const existingLastRow = sheet.getLastRow();
+    const existing = existingLastRow >= 2 ? sheet.getRange(2, 1, existingLastRow - 1, COLUMN_COUNT).getValues() : [];
+    const output = [];
+    for (const row of existing) {
+      if (String(row[ACCOUNT_ID_INDEX] || "").trim() !== accountId) output.push(row);
+    }
+    output.push(...incoming);
+
+    const maxRows = sheet.getMaxRows();
+    const maxCols = sheet.getMaxColumns();
+    if (maxRows > 1) sheet.getRange(2, 1, maxRows - 1, maxCols).clearContent();
+    if (output.length) writeChunks_(sheet, 2, output);
+    formatDateColumns_(sheet, output.length);
+    return { received: incomingRows.length, accepted: incoming.length, written: incoming.length, finalRowCount: output.length, mode: "account-replacement" };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
 function upsertRows_(spreadsheetId, tabName, incomingRows) {
   const lock = LockService.getScriptLock();
   lock.waitLock(30000);
@@ -216,25 +232,24 @@ function upsertRows_(spreadsheetId, tabName, incomingRows) {
     const rowById = new Map();
     existingRows.forEach((row, index) => {
       const id = rowKey_(row);
-      if (id) rowById.set(id, { index, row });
+      if (id) rowById.set(id, { index });
     });
     const appendRows = [];
-    let created = 0, updated = 0, unchanged = 0, skipped = 0;
+    let created = 0, updated = 0, skipped = 0;
     for (const rawRow of incomingRows) {
       if (!Array.isArray(rawRow) || rawRow.length < COLUMN_COUNT) { skipped++; continue; }
       const row = rawRow.slice(0, COLUMN_COUNT);
       const id = rowKey_(row);
       if (!id) { skipped++; continue; }
       const existing = rowById.get(id);
-      if (!existing) { appendRows.push(row); created++; continue; }
-      existingRows[existing.index] = row;
-      updated++;
+      if (!existing) { appendRows.push(row); created++; }
+      else { existingRows[existing.index] = row; updated++; }
     }
     if (updated > 0 && existingRows.length > 0) writeChunks_(sheet, 2, existingRows);
     if (appendRows.length > 0) writeChunks_(sheet, Math.max(sheet.getLastRow() + 1, 2), appendRows);
     const finalRowCount = Math.max(sheet.getLastRow() - 1, 0);
     formatDateColumns_(sheet, finalRowCount);
-    return { received: incomingRows.length, created, updated, unchanged, skipped, finalRowCount };
+    return { received: incomingRows.length, created, updated, skipped, finalRowCount };
   } finally {
     lock.releaseLock();
   }
