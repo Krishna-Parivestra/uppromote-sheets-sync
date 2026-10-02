@@ -127,8 +127,8 @@ function normalizeFullRow_(rawRow, seenKeys) {
 /**
  * FULL REBUILD MODE:
  * 1. Validate/dedupe the complete incoming dataset.
- * 2. Clear EVERY cell below row 1 across ALL columns.
- * 3. Write the fresh dataset starting at row 2.
+ * 2. Physically delete EVERY row below row 1.
+ * 3. Create exactly the fresh row count and write it starting at row 2.
  *
  * Nothing is appended to the previous dataset.
  */
@@ -151,25 +151,33 @@ function replaceAllRows_(spreadsheetId, tabName, incomingRows, allowEmpty) {
       throw new Error("Refusing to wipe sheet because the incoming dataset is empty or invalid");
     }
 
-    // THIS IS THE IMPORTANT CHANGE:
-    // Clear the entire data area, not just getLastRow()/20 columns.
-    const maxRows = sheet.getMaxRows();
-    const maxCols = sheet.getMaxColumns();
-    if (maxRows > 1 && maxCols > 0) {
-      sheet.getRange(2, 1, maxRows - 1, maxCols).clearContent();
+    // NUCLEAR FULL REBUILD:
+    // Physically delete every row below the header, then create exactly
+    // the number of fresh data rows required. This is intentionally NOT
+    // clearContent(): the old spreadsheet rows themselves must disappear.
+    const rowsBefore = sheet.getMaxRows();
+    const dataRowsBefore = Math.max(rowsBefore - 1, 0);
+
+    if (dataRowsBefore > 0) {
+      sheet.deleteRows(2, dataRowsBefore);
     }
 
-    if (rows.length) writeChunks_(sheet, 2, rows);
-    formatDateColumns_(sheet, rows.length);
+    if (rows.length > 0) {
+      sheet.insertRowsAfter(1, rows.length);
+      writeChunks_(sheet, 2, rows);
+      formatDateColumns_(sheet, rows.length);
+    }
+
+    SpreadsheetApp.flush();
 
     return {
       received: incomingRows.length,
       accepted: rows.length,
-      wipedRows: Math.max(maxRows - 1, 0),
-      wipedColumns: maxCols,
+      deletedPhysicalRows: dataRowsBefore,
+      insertedPhysicalRows: rows.length,
       written: rows.length,
-      finalRowCount: rows.length,
-      mode: "full-rebuild",
+      finalRowCount: Math.max(sheet.getMaxRows() - 1, 0),
+      mode: "full-rebuild-delete-recreate",
     };
   } finally {
     lock.releaseLock();
