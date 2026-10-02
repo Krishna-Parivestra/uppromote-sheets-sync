@@ -1,0 +1,1449 @@
+<!DOCTYPE html><html><head>
+        <meta charset="utf-8">
+<script async="" src="https://scripts.clarity.ms/0.8.70/clarity.js"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-5RGWXF3HYE&amp;cx=c&amp;gtm=4e69u2"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=UA-53113273-30&amp;cx=c&amp;gtm=4e69u2"></script><script async="" src="https://www.clarity.ms/tag/eyl8j6f1je?ref=gtm2"></script><script type="text/javascript" async="" src="https://www.clarity.ms/tag/eyl8j6f1je?ref=gtm"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/destination?id=AW-776621375&amp;cx=c&amp;gtm=4e69u2"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-535G29T"></script><script>
+// Stub: ensures AffiliateEventTracker exists before affiliate-event-tracker.js loads.
+window.AffiliateEventTracker = window.AffiliateEventTracker || {
+    _stub: true,
+    _queue: [],
+    trackNow: function(name, props) { this._queue.push({ name: name, props: props }); },
+    track: function(name, props) { this._queue.push({ name: name, props: props }); },
+    flush: function() {}
+};
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="csrf-token" content="qur9Zfmg7SncSGwO0rHgLfw19sDTV91006tiGSEE">
+<meta name="up:env" content="production">
+<meta name="up:affiliateUserpilot" content="0">
+<meta name="up:merchantLoginAs" content="">
+<meta name="up:marketplaceUserLoginAs" content="">
+<meta name="up:subPath" content="hypdshop">
+<meta name="up:shopDomain" content="hypdshop.myshopify.com">
+<meta name="up:programId" content="295381">
+<meta name="up:cdn-base-url" content="cdn.uppromote.com">
+<meta name="google-site-verification" content="pOYpx-eOMPaJiCevCZG6arNYQKhiIQjOLmFdreGMIV8">
+<title>Commission</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet" type="text/css">
+<!-- Toastr style -->
+<link href="https://d1639lhkj5l89m.cloudfront.net/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://af.uppromote.com/css/plugins/select2/select2.min.css">
+<!-- Gritter -->
+<link href="https://d1639lhkj5l89m.cloudfront.net/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+<link href="https://d1639lhkj5l89m.cloudfront.net/css/plugins/switchery/switchery.css" rel="stylesheet">
+<link href="https://d1639lhkj5l89m.cloudfront.net/css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="https://d1639lhkj5l89m.cloudfront.net/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+<link href="https://d1639lhkj5l89m.cloudfront.net/css/plugins/iCheck/square/blue.css" rel="stylesheet">
+<link href="https://af.uppromote.com/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://d1639lhkj5l89m.cloudfront.net/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-9ZfPnbegQSumzaE7mks2IYgHoayLtuto3AS6ieArECeaR8nCfliJVuLh/GaQ1gyM" crossorigin="anonymous">
+<link href="https://d1639lhkj5l89m.cloudfront.net/css/animate.css" rel="stylesheet">
+<link href="https://d1639lhkj5l89m.cloudfront.net/css/style.css" rel="stylesheet">
+<link href="https://af.uppromote.com/css/affiliate/style.css?v=5" rel="stylesheet">
+
+<!-- Custom theme 2021 -->
+<link rel="stylesheet" href="https://d1639lhkj5l89m.cloudfront.net/affiliate-bootstrap/css/affiliate-style.min.css?v=1">
+
+
+    <link rel="stylesheet" type="text/css" href="https://d1639lhkj5l89m.cloudfront.net/css/plugins/daterangepicker/local/daterangepicker.css">
+    <link rel="stylesheet" href="https://d1639lhkj5l89m.cloudfront.net/affiliate-bootstrap/css/affiliate-styleV2.min.css">
+    <link href="https://d1639lhkj5l89m.cloudfront.net/css/affiliate/commission/index.min.css" rel="stylesheet">
+
+<script type="text/javascript">
+    var currencyFormat = "Rs. {{amount}}";
+    var Shopify = Shopify || {};
+    // ---------------------------------------------------------------------------
+    // Money format handler
+    // ---------------------------------------------------------------------------
+    Shopify.formatMoney = function(cents, format) {
+        cents = cents*100;
+        if (typeof cents == 'string') { cents = cents.replace('.',''); }
+        var value = '';
+        var placeholderRegex = /\{\{\s*(\w+)\s*\}\}/;
+        var formatString = (format || this.money_format);
+
+        function defaultOption(opt, def) {
+            return (typeof opt == 'undefined' ? def : opt);
+        }
+
+        function formatWithDelimiters(number, precision, thousands, decimal) {
+        precision = defaultOption(precision, 2);
+        thousands = defaultOption(thousands, ',');
+        decimal   = defaultOption(decimal, '.');
+
+        if (isNaN(number) || number == null) { return 0; }
+
+        number = (number/100.0).toFixed(precision);
+
+        var parts   = number.split('.'),
+            dollars = parts[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + thousands),
+            cents   = parts[1] ? (decimal + parts[1]) : '';
+
+        return dollars + cents;
+        }
+
+        switch(formatString.match(placeholderRegex)[1]) {
+            case 'amount':
+                value = formatWithDelimiters(cents, 2);
+                break;
+            case 'amount_no_decimals':
+                value = formatWithDelimiters(cents, 0);
+                break;
+            case 'amount_with_comma_separator':
+                value = formatWithDelimiters(cents, 2, '.', ',');
+                break;
+            case 'amount_no_decimals_with_comma_separator':
+                value = formatWithDelimiters(cents, 0, '.', ',');
+                break;
+            case 'amount_with_apostrophe_separator':
+                value = formatWithDelimiters(cents, 2, "'", '.');
+                break;
+            case 'amount_no_decimals_with_space_separator':
+                value = formatWithDelimiters(cents, 0, ' ');
+                break;
+            case 'amount_with_space_separator':
+                value = formatWithDelimiters(cents, 2, ' ', ',');
+                break;
+            case 'amount_with_period_and_space_separator':
+                value = formatWithDelimiters(cents, 2, ' ', '.');
+                break;
+            default:
+                value = formatWithDelimiters(cents, 2);
+        }
+
+        return formatString.replace(placeholderRegex, value);
+    };
+
+    function copyToClipboard(text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            return navigator.clipboard.writeText(text).catch(() => {
+                fallbackCopyToClipboard(text);
+            });
+        } else {
+            fallbackCopyToClipboard(text);
+        }
+    }
+
+    function fallbackCopyToClipboard(text) {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "absolute";
+        textarea.style.left = "-9999px";
+
+        document.body.appendChild(textarea);
+        textarea.select();
+
+        try {
+            const success = document.execCommand("copy");
+            if (!success) {
+                throw new Error("execCommand copy failed");
+            }
+        } catch (err) {
+            console.error("Fallback copy failed:", err);
+        }
+
+        document.body.removeChild(textarea);
+    }
+
+    function copy(text, btn, textBtn) {
+        const input = document.getElementById(text);
+        const btnCopy = document.getElementById(btn);
+
+        if (!input || !btnCopy) return;
+
+        const value = input.value || input.innerText || "";
+        copyToClipboard(value);
+
+        const original = btnCopy.innerHTML;
+        btnCopy.innerHTML = btnCopy.getAttribute("data-lang") || "Copied";
+        setTimeout(() => {
+            btnCopy.innerHTML = textBtn || original || "Copy";
+        }, 1000);
+    }
+</script>
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-535G29T');</script>
+        <!-- End Google Tag Manager -->
+
+        <!-- SEO -->
+        <link rel="canonical" href="https://af.uppromote.com/hypdshop.myshopify.com">
+            <style type="text/css">.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}</style><script type="text/javascript" async="" src="https://googleads.g.doubleclick.net/pagead/viewthroughconversion/776621375/?random=1790905097950&amp;cv=11&amp;fst=1790905097950&amp;bg=ffffff&amp;guid=ON&amp;async=1&amp;gtm=45be69u2v897076689z8845683563za20gzb845683563zd845683563xeaxf1&amp;gcd=13l3l3l3l1l1&amp;dma=0&amp;tag_exp=115938466~115938469~118897920~118897930~120213116~120385422~120469145~120469153~121046262~121046270~121246027~121246035~121427141&amp;u_w=1440&amp;u_h=900&amp;url=https%3A%2F%2Faf.uppromote.com%2Fhypdshop%2Fcommission&amp;ref=https%3A%2F%2Faf.uppromote.com%2Fhypdshop%2Fdashboard&amp;rcb=10&amp;label=Affiliate%20Remarketing&amp;frm=0&amp;tiba=Commission&amp;hn=www.googleadservices.com&amp;rdp=1&amp;npa=0&amp;pscdl=noapi&amp;auid=1116584263.1790905096&amp;uaa=x86&amp;uab=64&amp;uafvl=Chromium%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0&amp;uamb=0&amp;uam=&amp;uap=Windows&amp;uapv=19.0.0&amp;uaw=0&amp;_tu=CAI&amp;ept=9&amp;rfmt=3&amp;fmt=4"></script></head>
+    <body class="pace-done skin-3 fixed-sidebar">
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-535G29T"
+                          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+
+        <div id="wrapper" class="pro-295381">
+                            <nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;"><div class="sidebar-collapse" style="overflow: hidden; width: auto; height: 100%;">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                                            <span style="display: inline-block; width: 30px; height: 30px; margin-right: 25px;">
+                        <i class="fal fa-user-circle" style="font-size: 50px;"></i>
+                    </span>
+                    
+
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                    <span class="clear"> 
+                        <span class="block m-t-xs"> <strong class="font-bold">Parivestra SF - 5</strong>
+                        </span> 
+                                                <span class="text-muted text-xs block"><i class="fa fa-circle text-info" style="font-size: 12px;"></i> Active </span>
+                                            </span>
+
+                    </a>
+                </div>
+                <div class="logo-element">
+                                            <span style="display: inline-block; width: 30px; height: 30px; margin-right: 25px;">
+                            <i class="fal fa-user-circle" style="font-size: 50px;"></i>
+                        </span>
+                                    </div>
+            </li>
+            <li>
+                <a href="https://af.uppromote.com/hypdshop/dashboard"><i class="fal fa-chart-bar "></i>
+                    <span class="nav-label">Dashboard</span></a>
+            </li>
+
+            <li class="active" id="commission_menu">
+                <a href="https://af.uppromote.com/hypdshop/commission" class="">
+                    <i class="fal fa-hand-holding-usd btn-danger-shadow"></i>
+                <span class="nav-label">Commission</span></a>
+            </li>
+
+                            <li id="payment_menu">
+                    <a href="https://af.uppromote.com/hypdshop/payment" class="">
+                        <i class="fal fa-credit-card "></i>
+                        <span class="nav-label">Payment</span></a>
+                </li>
+            
+            
+            <li id="side_bar_marketing_tool_tab">
+                <a href="https://af.uppromote.com/hypdshop/marketing" class="">
+                    <i class="fal fa-image "></i>
+                    <span class="nav-label">Marketing Tools</span></a>
+            </li>
+
+            
+            <li id="profile_menu">
+                <a href="https://af.uppromote.com/hypdshop/setting/profile" class="">
+                    <i class="fal fal fa-cog "></i>
+                    <span class="nav-label">Settings</span></a>
+            </li>
+
+            <li id="guide_menu">
+                <a href="https://af.uppromote.com/hypdshop/guide" class="">
+                    <i class="fal fa-book "></i> 
+                    <span class="nav-label">Guide</span></a>
+            </li>
+
+            <li>
+                <a href="#" id="logout_menu" data-logout-url="https://af.uppromote.com/hypdshop/logout">
+                    <i class="fal fa-sign-out"></i> Log out
+                </a>
+            </li>
+            <li class="d-none">
+                <a id="affiliate_user_email" target="_blank" href="https://marketplace.uppromote.com/register?key=eyJpdiI6IjNiVHNTWVRnZHYzNkt3WEhLNk5LeXc9PSIsInZhbHVlIjoiWW1rVjFQd3FiM2ZsTFFDYWs4M1wvU3JCU2MxSG5oK3d1OGhkVHN6RjVxNW89IiwibWFjIjoiNzFmYzFiNmU2ZDJkYjUxOWFmOTViMmFhN2Y0M2RhODcwZDg2ZWYxMmU1Nzc3N2VkODc1NGQwZDQ5NjI5N2I1NyJ9">
+                    <i class="fa fa-sign-out"></i> Redirect
+                </a>
+            </li>
+
+        </ul>
+
+        
+    </div><div class="slimScrollBar" style="background: rgb(0, 0, 0); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 900px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.9; z-index: 90; right: 1px;"></div></div>
+    <div data-iframe-height="true"></div>
+</nav>                        <div id="page-wrapper" class="gray-bg dashbard-1" style="min-height: 900px;">
+                <!--Start of Tawk.to Script-->
+
+<!--End of Tawk.to Script-->
+
+<div class="row border-bottom mg0-left">
+    <div class="d-flex align-items-center justify-content-between align-items-center" id="header-affiliate" role="navigation">
+        <div class="navbar-header d-flex align-items-center" id="brecum-heading">
+                            <a class="navbar-minimalize minimalize-styl-2 btn btn-default" href="javascript:void(0)">
+                    <i class="fal fa-bars text-gray"></i>
+                </a>
+                            <ol class="breadcrumb">
+                                    <li class="breadcrumb-item active">Commission</li>
+                        </ol>
+
+        </div>
+
+        
+        <div class="nav navbar-top-links header-affiliate__content hidden-xs">
+            
+            
+            <div class="border-box header-affiliate__content-box ml-2 d-flex align-items-center">
+                <div class="m-r-sm text-muted welcome-message d-flex align-items-center">
+                    <p class="mb-0 d-flex align-items-center text-body">
+                        <i class="fal fa-user-circle"></i> &nbsp;
+                        <strong>Support:</strong>&nbsp; 
+                    </p>
+                    <a href="mailto:vipin.sharma@hypd.in">vipin.sharma@hypd.in</a>
+                </div>
+            </div>
+        </div>
+
+        
+        <section class="visible-xs">
+            <div class="d-flex" id="header-affiliate-xs">
+                
+                <div class="ml-1">
+                    <i class="fal fa-user-circle header-affiliate-xs__icon" data-show="#header-affiliate-xs__email"></i>
+                    <div class="header-affiliate-xs__content border-box" id="header-affiliate-xs__email" style="display: none;">
+                        <a href="mailto:vipin.sharma@hypd.in">vipin.sharma@hypd.in</a>
+                    </div>
+                </div>
+
+                            </div>
+        </section>
+    </div>
+</div>
+                <div class="wrapper wrapper-content animated fadeInRight">
+                        <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h3>List commission</h3>
+                </div>
+
+                <div class="ibox ibox-datatable-filter no-margins">
+                    <div class="ibox-content-custom">
+                        <div class="datatable-filter-container">
+                            <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12 d-flex pd0-left-right flex-xs-column">
+                                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12 datatable-filter-item mb-xs-2">
+                                    <div class="form-group commission_sca_source">
+                                        <label for="sca_source_group">Source</label>
+                                        <select name="" id="sca_source_group" class="form-control form-control-select" data-lang="All source" style="text-transform: capitalize;"><option value="">All sources</option><option value="Other">Other</option></select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12 datatable-filter-item mb-xs-12">
+                                    <div class="form-group">
+                                        <label for="date-range-filter">Date</label>
+                                        <div id="reportrange">
+                                            <span>Sep 3, 2026 - Oct 2, 2026</span><i class="fal fa-calendar-alt"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12 datatable-filter-item mb-xs-12 mt-xs-2">
+                                    <div class="form-group">
+                                        <label for="status">Status</label>
+                                        <select id="status" class="form-control">
+                                            <option value="-1">All</option>
+                                            <option value="0">Pending</option>
+                                            <option value="1">Approved</option>
+                                            <option value="2">Paid</option>
+                                            <option value="3">denied</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12 datatable-filter-item datatable-filter-item-search">
+                                <div class="form-group">
+                                    <label for="commission-search-datatable">Search</label>
+                                    <div>
+                                        <input type="text" id="commission-search-datatable" class="form-control">
+                                        <i class="fal fa-search"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ibox-content pd-lr0">
+                    <div class="table-responsive">
+                        <div id="commission_datatables_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer"><div class="datatable_toolbar"></div><div class="html5buttons"><div class="dt-buttons btn-group"><a class="btn btn-default buttons-copy buttons-html5 html5buttons-hide d-none" tabindex="0" aria-controls="commission_datatables" href="#"><span>Copy</span></a><a class="btn btn-default buttons-csv buttons-html5 html5buttons-hide d-none" tabindex="0" aria-controls="commission_datatables" href="#"><span>CSV</span></a><a class="btn btn-default buttons-excel buttons-html5 html5buttons-hide d-none" tabindex="0" aria-controls="commission_datatables" href="#"><span>Excel</span></a><a class="btn btn-default buttons-print html5buttons-hide d-none" tabindex="0" aria-controls="commission_datatables" href="#"><span>Print</span></a><a class="btn btn-default html5buttons-export" tabindex="0" aria-controls="commission_datatables" href="#"><span><div class="btn-group"><button id="payment-export-approved-referrals" class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fal fa-download" style="color: #092C4C;"></i>&nbsp; Export file <i class="far fa-caret-down" style="margin-left: 20px; color: #092C4C;"></i></button><div id="export-approved-referrals" class="dropdown-menu dropdown-menu-wide" aria-labelledby="dropdownMenuLink"><li class="export-option" value=".buttons-copy">Copy</li><li class="export-option" value=".buttons-csv">CSV</li><li class="export-option" value=".buttons-excel">Excel</li><li class="export-option" value=".buttons-print">Print</li></div></div></span></a></div></div><div class="dataTables_length" id="commission_datatables_length"><label>Show <select name="commission_datatables_length" aria-controls="commission_datatables" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div><div id="commission_datatables_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="commission_datatables"></label></div><table class="table table-striped table-bordered table-hover dataTables-example dataTable no-footer" id="commission_datatables" style="width: 100%;" role="grid" aria-describedby="commission_datatables_info">
+                            <thead>
+                                <tr role="row"><th class="text-center sorting_desc" tabindex="0" aria-controls="commission_datatables" rowspan="1" colspan="1" style="width: 63.2px;" aria-sort="descending" aria-label="Create at: activate to sort column ascending">Create at</th><th class="text-center sorting_disabled" rowspan="1" colspan="1" style="width: 68.2px;" aria-label="Referral ID">Referral ID</th><th class="text-center font-bold sorting" tabindex="0" aria-controls="commission_datatables" rowspan="1" colspan="1" style="width: 63.2px;" aria-label="Order number: activate to sort column ascending">Order number</th><th class="text-center font-bold sorting" tabindex="0" aria-controls="commission_datatables" rowspan="1" colspan="1" style="width: 63.2px;" aria-label="Total sales: activate to sort column ascending">Total sales</th><th class="text-center sorting" tabindex="0" aria-controls="commission_datatables" rowspan="1" colspan="1" style="width: 63.2px;" aria-label="Quantity: activate to sort column ascending">Quantity</th><th class="text-center font-bold sorting" tabindex="0" aria-controls="commission_datatables" rowspan="1" colspan="1" style="width: 91.2px;" aria-label="Commission: activate to sort column ascending">Commission</th><th class="text-center sorting_disabled" rowspan="1" colspan="1" style="width: 69.2px;" aria-label="Status">Status</th><th class="sorting" tabindex="0" aria-controls="commission_datatables" rowspan="1" colspan="1" style="width: 122.2px;" aria-label="Source: activate to sort column ascending">Source</th><th class="sorting" tabindex="0" aria-controls="commission_datatables" rowspan="1" colspan="1" style="width: 116px;" aria-label="Action: activate to sort column ascending">Action</th></tr>
+                            </thead>
+                            <tbody><tr role="row" class="odd"><td class="text-center sorting_1"><span>32 minutes ago<br><small>Oct 2, 2026 6:35 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34567607</td><td class=" text-center font-bold">#686215</td><td class=" text-center font-bold"><span class="text-info">Rs. 858.22</span></td><td class=" text-center">3</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34567607" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>2 hours ago<br><small>Oct 2, 2026 4:49 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34565573</td><td class=" text-center font-bold">#686192</td><td class=" text-center font-bold"><span class="text-info">Rs. 444.41</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34565573" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>7 hours ago<br><small>Oct 2, 2026 12:35 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34558830</td><td class=" text-center font-bold">#686147</td><td class=" text-center font-bold"><span class="text-info">Rs. 619.11</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34558830" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>7 hours ago<br><small>Oct 2, 2026 12:13 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34558138</td><td class=" text-center font-bold">#686132</td><td class=" text-center font-bold"><span class="text-info">Rs. 562.75</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34558138" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>7 hours ago<br><small>Oct 2, 2026 12:12 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34558077</td><td class=" text-center font-bold">#686130</td><td class=" text-center font-bold"><span class="text-info">Rs. 450.04</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34558077" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>8 hours ago<br><small>Oct 1, 2026 11:33 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34556819</td><td class=" text-center font-bold">#686094</td><td class=" text-center font-bold"><span class="text-info">Rs. 307.54</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34556819" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>8 hours ago<br><small>Oct 1, 2026 11:22 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34556461</td><td class=" text-center font-bold">#686081</td><td class=" text-center font-bold"><span class="text-info">Rs. 401.74</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34556461" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>8 hours ago<br><small>Oct 1, 2026 11:13 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34556141</td><td class=" text-center font-bold">#686076</td><td class=" text-center font-bold"><span class="text-info">Rs. 160.21</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34556141" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>8 hours ago<br><small>Oct 1, 2026 10:43 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34555219</td><td class=" text-center font-bold">#686037</td><td class=" text-center font-bold"><span class="text-info">Rs. 482.25</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34555219" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>9 hours ago<br><small>Oct 1, 2026 10:21 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34554528</td><td class=" text-center font-bold">#686013</td><td class=" text-center font-bold"><span class="text-info">Rs. 1,463.64</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34554528" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>9 hours ago<br><small>Oct 1, 2026 10:19 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34554476</td><td class=" text-center font-bold">#686009</td><td class=" text-center font-bold"><span class="text-info">Rs. 160.21</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34554476" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>9 hours ago<br><small>Oct 1, 2026 10:12 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34554253</td><td class=" text-center font-bold">#685999</td><td class=" text-center font-bold"><span class="text-info">Rs. 562.75</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34554253" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>9 hours ago<br><small>Oct 1, 2026 10:03 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34554011</td><td class=" text-center font-bold">#685990</td><td class=" text-center font-bold"><span class="text-info">Rs. 456.77</span></td><td class=" text-center">2</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34554011" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>9 hours ago<br><small>Oct 1, 2026 9:59 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34553899</td><td class=" text-center font-bold">#685981</td><td class=" text-center font-bold"><span class="text-info">Rs. 401.74</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34553899" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>9 hours ago<br><small>Oct 1, 2026 9:52 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34553717</td><td class=" text-center font-bold">#685975</td><td class=" text-center font-bold"><span class="text-info">Rs. 160.21</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34553717" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>10 hours ago<br><small>Oct 1, 2026 9:10 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34552355</td><td class=" text-center font-bold">#685923</td><td class=" text-center font-bold"><span class="text-info">Rs. 441.99</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34552355" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>11 hours ago<br><small>Oct 1, 2026 8:25 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34551044</td><td class=" text-center font-bold">#685869</td><td class=" text-center font-bold"><span class="text-info">Rs. 160.21</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34551044" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>11 hours ago<br><small>Oct 1, 2026 8:12 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34550644</td><td class=" text-center font-bold">#685859</td><td class=" text-center font-bold"><span class="text-info">Rs. 253.38</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34550644" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>11 hours ago<br><small>Oct 1, 2026 7:56 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34550195</td><td class=" text-center font-bold">#685842</td><td class=" text-center font-bold"><span class="text-info">Rs. 450.04</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34550195" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>12 hours ago<br><small>Oct 1, 2026 7:36 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34549693</td><td class=" text-center font-bold">#685825</td><td class=" text-center font-bold"><span class="text-info">Rs. 924.24</span></td><td class=" text-center">2</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34549693" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>13 hours ago<br><small>Oct 1, 2026 6:23 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34547889</td><td class=" text-center font-bold">#685778</td><td class=" text-center font-bold"><span class="text-info">Rs. 450.04</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34547889" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>13 hours ago<br><small>Oct 1, 2026 6:10 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34547635</td><td class=" text-center font-bold">#685768</td><td class=" text-center font-bold"><span class="text-info">Rs. 674.66</span></td><td class=" text-center">2</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34547635" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>14 hours ago<br><small>Oct 1, 2026 5:31 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34546744</td><td class=" text-center font-bold">#685728</td><td class=" text-center font-bold"><span class="text-info">Rs. 1,069.15</span></td><td class=" text-center">2</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34546744" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>14 hours ago<br><small>Oct 1, 2026 4:46 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34545757</td><td class=" text-center font-bold">#685689</td><td class=" text-center font-bold"><span class="text-info">Rs. 482.25</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34545757" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>15 hours ago<br><small>Oct 1, 2026 4:29 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34545391</td><td class=" text-center font-bold">#685675</td><td class=" text-center font-bold"><span class="text-info">Rs. 702.84</span></td><td class=" text-center">2</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34545391" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>15 hours ago<br><small>Oct 1, 2026 4:07 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34544924</td><td class=" text-center font-bold">#685656</td><td class=" text-center font-bold"><span class="text-info">Rs. 160.21</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34544924" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>16 hours ago<br><small>Oct 1, 2026 3:19 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34543927</td><td class=" text-center font-bold">#685599</td><td class=" text-center font-bold"><span class="text-info">Rs. 834.87</span></td><td class=" text-center">3</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34543927" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>16 hours ago<br><small>Oct 1, 2026 2:45 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34543292</td><td class=" text-center font-bold">#685556</td><td class=" text-center font-bold"><span class="text-info">Rs. 160.21</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34543292" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>16 hours ago<br><small>Oct 1, 2026 2:40 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34543207</td><td class=" text-center font-bold">#685552</td><td class=" text-center font-bold"><span class="text-info">Rs. 160.21</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34543207" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>17 hours ago<br><small>Oct 1, 2026 2:13 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34542472</td><td class=" text-center font-bold">#685522</td><td class=" text-center font-bold"><span class="text-info">Rs. 619.11</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34542472" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>17 hours ago<br><small>Oct 1, 2026 1:59 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34542182</td><td class=" text-center font-bold">#685503</td><td class=" text-center font-bold"><span class="text-info">Rs. 307.54</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34542182" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>17 hours ago<br><small>Oct 1, 2026 1:48 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34541984</td><td class=" text-center font-bold">#685485</td><td class=" text-center font-bold"><span class="text-info">Rs. 160.21</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34541984" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>19 hours ago<br><small>Oct 1, 2026 12:36 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34540487</td><td class=" text-center font-bold">#685412</td><td class=" text-center font-bold"><span class="text-info">Rs. 619.11</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34540487" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>19 hours ago<br><small>Oct 1, 2026 12:31 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34540376</td><td class=" text-center font-bold">#685406</td><td class=" text-center font-bold"><span class="text-info">Rs. 619.11</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34540376" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>20 hours ago<br><small>Oct 1, 2026 11:18 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34539179</td><td class=" text-center font-bold">#685332</td><td class=" text-center font-bold"><span class="text-info">Rs. 329.70</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34539179" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>20 hours ago<br><small>Oct 1, 2026 10:40 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34538599</td><td class=" text-center font-bold">#685297</td><td class=" text-center font-bold"><span class="text-info">Rs. 482.25</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34538599" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>21 hours ago<br><small>Oct 1, 2026 10:35 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34538508</td><td class=" text-center font-bold">#685287</td><td class=" text-center font-bold"><span class="text-info">Rs. 160.21</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34538508" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>21 hours ago<br><small>Oct 1, 2026 10:21 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34538300</td><td class=" text-center font-bold">#685264</td><td class=" text-center font-bold"><span class="text-info">Rs. 364.70</span></td><td class=" text-center">2</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34538300" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>21 hours ago<br><small>Oct 1, 2026 10:17 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34538245</td><td class=" text-center font-bold">#685253</td><td class=" text-center font-bold"><span class="text-info">Rs. 1,079.62</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34538245" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>21 hours ago<br><small>Oct 1, 2026 9:49 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34537751</td><td class=" text-center font-bold">#685232</td><td class=" text-center font-bold"><span class="text-info">Rs. 482.25</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34537751" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>a day ago<br><small>Oct 1, 2026 9:20 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34537236</td><td class=" text-center font-bold">#685199</td><td class=" text-center font-bold"><span class="text-info">Rs. 329.70</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34537236" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>a day ago<br><small>Oct 1, 2026 8:50 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34536742</td><td class=" text-center font-bold">#685166</td><td class=" text-center font-bold"><span class="text-info">Rs. 441.99</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34536742" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>a day ago<br><small>Oct 1, 2026 8:30 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34536329</td><td class=" text-center font-bold">#685151</td><td class=" text-center font-bold"><span class="text-info">Rs. 160.21</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34536329" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>a day ago<br><small>Oct 1, 2026 7:43 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34535569</td><td class=" text-center font-bold">#685112</td><td class=" text-center font-bold"><span class="text-info">Rs. 651.31</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34535569" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>a day ago<br><small>Oct 1, 2026 7:17 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34535080</td><td class=" text-center font-bold">#685096</td><td class=" text-center font-bold"><span class="text-info">Rs. 353.43</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34535080" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>a day ago<br><small>Oct 1, 2026 7:06 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34534866</td><td class=" text-center font-bold">#685087</td><td class=" text-center font-bold"><span class="text-info">Rs. 1,238.22</span></td><td class=" text-center">2</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34534866" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>a day ago<br><small>Oct 1, 2026 5:56 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34533279</td><td class=" text-center font-bold">#685070</td><td class=" text-center font-bold"><span class="text-info">Rs. 160.21</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-primary">Approved</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34533279" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>a day ago<br><small>Oct 1, 2026 12:49 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34525232</td><td class=" text-center font-bold">#685014</td><td class=" text-center font-bold"><span class="text-info">Rs. 168.63</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34525232" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>a day ago<br><small>Oct 1, 2026 12:47 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34525139</td><td class=" text-center font-bold">#685012</td><td class=" text-center font-bold"><span class="text-info">Rs. 482.25</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34525139" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>a day ago<br><small>Oct 1, 2026 12:03 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34523483</td><td class=" text-center font-bold">#684979</td><td class=" text-center font-bold"><span class="text-info">Rs. 441.99</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34523483" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>a day ago<br><small>Sep 30, 2026 10:55 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34521000</td><td class=" text-center font-bold">#684907</td><td class=" text-center font-bold"><span class="text-info">Rs. 401.74</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34521000" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>a day ago<br><small>Sep 30, 2026 10:26 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34519915</td><td class=" text-center font-bold">#684868</td><td class=" text-center font-bold"><span class="text-info">Rs. 482.25</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34519915" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>a day ago<br><small>Sep 30, 2026 9:28 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34517745</td><td class=" text-center font-bold">#684804</td><td class=" text-center font-bold"><span class="text-info">Rs. 307.54</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34517745" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>a day ago<br><small>Sep 30, 2026 9:22 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34517531</td><td class=" text-center font-bold">#684796</td><td class=" text-center font-bold"><span class="text-info">Rs. 254.41</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34517531" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>a day ago<br><small>Sep 30, 2026 9:04 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34516881</td><td class=" text-center font-bold">#684778</td><td class=" text-center font-bold"><span class="text-info">Rs. 1,207.63</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34516881" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>a day ago<br><small>Sep 30, 2026 7:39 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34514155</td><td class=" text-center font-bold">#684684</td><td class=" text-center font-bold"><span class="text-info">Rs. 482.25</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34514155" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>a day ago<br><small>Sep 30, 2026 7:29 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34513865</td><td class=" text-center font-bold">#684673</td><td class=" text-center font-bold"><span class="text-info">Rs. 168.63</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34513865" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 6:39 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34512398</td><td class=" text-center font-bold">#684638</td><td class=" text-center font-bold"><span class="text-info">Rs. 482.25</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34512398" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 6:22 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34511923</td><td class=" text-center font-bold">#684619</td><td class=" text-center font-bold"><span class="text-info">Rs. 482.25</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34511923" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 5:48 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34511114</td><td class=" text-center font-bold">#684585</td><td class=" text-center font-bold"><span class="text-info">Rs. 307.54</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34511114" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 5:31 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34510665</td><td class=" text-center font-bold">#684570</td><td class=" text-center font-bold"><span class="text-info">Rs. 444.41</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34510665" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 4:42 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34509540</td><td class=" text-center font-bold">#684531</td><td class=" text-center font-bold"><span class="text-info">Rs. 222.87</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34509540" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 4:31 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34509298</td><td class=" text-center font-bold">#684521</td><td class=" text-center font-bold"><span class="text-info">Rs. 482.25</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34509298" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 3:52 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34508344</td><td class=" text-center font-bold">#684467</td><td class=" text-center font-bold"><span class="text-info">Rs. 523.30</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34508344" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 3:17 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34507433</td><td class=" text-center font-bold">#684425</td><td class=" text-center font-bold"><span class="text-info">Rs. 168.63</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34507433" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 2:54 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34506853</td><td class=" text-center font-bold">#684398</td><td class=" text-center font-bold"><span class="text-info">Rs. 160.21</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34506853" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 1:28 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34504740</td><td class=" text-center font-bold">#684302</td><td class=" text-center font-bold"><span class="text-info">Rs. 307.54</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34504740" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 1:16 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34504496</td><td class=" text-center font-bold">#684293</td><td class=" text-center font-bold"><span class="text-info">Rs. 444.41</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34504496" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 1:14 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34504454</td><td class=" text-center font-bold">#684288</td><td class=" text-center font-bold"><span class="text-info">Rs. 444.40</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34504454" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 1:13 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34504421</td><td class=" text-center font-bold">#684285</td><td class=" text-center font-bold"><span class="text-info">Rs. 307.54</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34504421" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 1:04 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34504263</td><td class=" text-center font-bold">#684269</td><td class=" text-center font-bold"><span class="text-info">Rs. 401.74</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34504263" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 1:04 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34504259</td><td class=" text-center font-bold">#684268</td><td class=" text-center font-bold"><span class="text-info">Rs. 563.56</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34504259" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 12:06 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34502840</td><td class=" text-center font-bold">#684184</td><td class=" text-center font-bold"><span class="text-info">Rs. 562.75</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34502840" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 11:40 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34502287</td><td class=" text-center font-bold">#684157</td><td class=" text-center font-bold"><span class="text-info">Rs. 1,207.63</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34502287" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 11:07 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34501710</td><td class=" text-center font-bold">#684121</td><td class=" text-center font-bold"><span class="text-info">Rs. 222.87</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34501710" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 11:00 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34501598</td><td class=" text-center font-bold">#684108</td><td class=" text-center font-bold"><span class="text-info">Rs. 562.75</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34501598" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 10:27 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34500887</td><td class=" text-center font-bold">#684073</td><td class=" text-center font-bold"><span class="text-info">Rs. 307.54</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34500887" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 10:15 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34500664</td><td class=" text-center font-bold">#684059</td><td class=" text-center font-bold"><span class="text-info">Rs. 160.21</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34500664" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 10:13 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34500624</td><td class=" text-center font-bold">#684057</td><td class=" text-center font-bold"><span class="text-info">Rs. 603.81</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34500624" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 10:02 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34500425</td><td class=" text-center font-bold">#684045</td><td class=" text-center font-bold"><span class="text-info">Rs. 301.52</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34500425" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 9:19 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34499562</td><td class=" text-center font-bold">#684005</td><td class=" text-center font-bold"><span class="text-info">Rs. 168.63</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34499562" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 8:10 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34498417</td><td class=" text-center font-bold">#683961</td><td class=" text-center font-bold"><span class="text-info">Rs. 160.21</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34498417" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 7:42 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34497988</td><td class=" text-center font-bold">#683937</td><td class=" text-center font-bold"><span class="text-info">Rs. 222.87</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34497988" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 6:40 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34496991</td><td class=" text-center font-bold">#683903</td><td class=" text-center font-bold"><span class="text-info">Rs. 1,738.98</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34496991" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 1:48 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34491234</td><td class=" text-center font-bold">#683860</td><td class=" text-center font-bold"><span class="text-info">Rs. 168.63</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34491234" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 12:33 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34488602</td><td class=" text-center font-bold">#683814</td><td class=" text-center font-bold"><span class="text-info">Rs. 603.81</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34488602" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 30, 2026 12:14 AM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34487889</td><td class=" text-center font-bold">#683794</td><td class=" text-center font-bold"><span class="text-info">Rs. 160.21</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34487889" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 29, 2026 11:17 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34485910</td><td class=" text-center font-bold">#683728</td><td class=" text-center font-bold"><span class="text-info">Rs. 168.63</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34485910" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 29, 2026 11:01 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34485399</td><td class=" text-center font-bold">#683701</td><td class=" text-center font-bold"><span class="text-info">Rs. 160.21</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34485399" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 29, 2026 10:22 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34484131</td><td class=" text-center font-bold">#683658</td><td class=" text-center font-bold"><span class="text-info">Rs. 925.04</span></td><td class=" text-center">3</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34484131" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 29, 2026 9:48 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34483148</td><td class=" text-center font-bold">#683616</td><td class=" text-center font-bold"><span class="text-info">Rs. 321.23</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34483148" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 29, 2026 9:27 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34482510</td><td class=" text-center font-bold">#683593</td><td class=" text-center font-bold"><span class="text-info">Rs. 369.48</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34482510" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 29, 2026 9:20 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34482304</td><td class=" text-center font-bold">#683586</td><td class=" text-center font-bold"><span class="text-info">Rs. 160.21</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34482304" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 29, 2026 8:43 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34481240</td><td class=" text-center font-bold">#683542</td><td class=" text-center font-bold"><span class="text-info">Rs. 450.04</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34481240" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 29, 2026 7:48 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34479704</td><td class=" text-center font-bold">#683494</td><td class=" text-center font-bold"><span class="text-info">Rs. 160.21</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34479704" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 29, 2026 7:26 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34479164</td><td class=" text-center font-bold">#683471</td><td class=" text-center font-bold"><span class="text-info">Rs. 168.63</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34479164" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>2 days ago<br><small>Sep 29, 2026 7:22 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34479075</td><td class=" text-center font-bold">#683468</td><td class=" text-center font-bold"><span class="text-info">Rs. 401.74</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34479075" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>3 days ago<br><small>Sep 29, 2026 6:28 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34477689</td><td class=" text-center font-bold">#683423</td><td class=" text-center font-bold"><span class="text-info">Rs. 307.54</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34477689" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="odd"><td class="text-center sorting_1"><span>3 days ago<br><small>Sep 29, 2026 6:17 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34477445</td><td class=" text-center font-bold">#683414</td><td class=" text-center font-bold"><span class="text-info">Rs. 401.73</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34477445" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr><tr role="row" class="even"><td class="text-center sorting_1"><span>3 days ago<br><small>Sep 29, 2026 6:10 PM</small></span></td><td class=" text-center"><span class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tracked by affiliate link"><i class="fal fa-link"></i></span>  34477282</td><td class=" text-center font-bold">#683406</td><td class=" text-center font-bold"><span class="text-info">Rs. 482.25</span></td><td class=" text-center">1</td><td class=" text-center font-bold"><span class="text-info">Rs. 0.00</span></td><td class=" text-center"><span class="text-warning">Pending</span></td><td></td><td><button class="open-detail" data-url="https://af.uppromote.com/hypdshop/commission/order-detail/34477282" data-toggle="tooltip" data-placement="top" data-original-title="Detail"><i class="fal fa-file-search box-icon"></i></button></td></tr></tbody>
+                        </table><div class="dataTables_info" id="commission_datatables_info" role="status" aria-live="polite">Showing 1 to 100 of 466 entries</div><div class="dataTables_paginate paging_simple_numbers" id="commission_datatables_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="commission_datatables_previous"><a href="#" aria-controls="commission_datatables" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="commission_datatables" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="commission_datatables" data-dt-idx="2" tabindex="0">2</a></li><li class="paginate_button "><a href="#" aria-controls="commission_datatables" data-dt-idx="3" tabindex="0">3</a></li><li class="paginate_button "><a href="#" aria-controls="commission_datatables" data-dt-idx="4" tabindex="0">4</a></li><li class="paginate_button "><a href="#" aria-controls="commission_datatables" data-dt-idx="5" tabindex="0">5</a></li><li class="paginate_button next" id="commission_datatables_next"><a href="#" aria-controls="commission_datatables" data-dt-idx="6" tabindex="0">Next</a></li></ul></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal inmodal fade" id="detail_order" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="ibox-tools">
+                        <a class="close-link close" data-dismiss="modal">
+                            <span class="mdiv">
+                                <span class="md"></span>
+                            </span>
+                        </a>
+                    </div>
+                    <h4 class="modal-title">Commission Explanation</h4>
+                    <small class="font-bold"></small>
+                </div>
+                <div class="modal-body">
+                    <div class="ibox-content">
+                        <div class="comment-container">
+                            <span class="text-info">Comment: </span><span class="comment-content"></span>
+                        </div>
+                        <div class="table-container table-responsive" style="margin-top: 20px;">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                                        <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+                    
+                    <div data-iframe-height="true"></div>
+                </div>
+                            </div>
+        </div>
+
+        <!-- Mainly scripts -->
+<!--suppress JSUnresolvedReference -->
+<script src="https://d1639lhkj5l89m.cloudfront.net/js/jquery-3.1.1.min.js"></script>
+<script src="https://d1639lhkj5l89m.cloudfront.net/js/bootstrap.min.js"></script>
+<script src="https://d1639lhkj5l89m.cloudfront.net/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="https://d1639lhkj5l89m.cloudfront.net/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- Flot -->
+<script src="https://d1639lhkj5l89m.cloudfront.net/js/plugins/flot/jquery.flot.js"></script>
+<script src="https://d1639lhkj5l89m.cloudfront.net/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+<script src="https://d1639lhkj5l89m.cloudfront.net/js/plugins/flot/jquery.flot.spline.js"></script>
+<script src="https://d1639lhkj5l89m.cloudfront.net/js/plugins/flot/jquery.flot.resize.js"></script>
+<script src="https://d1639lhkj5l89m.cloudfront.net/js/plugins/flot/jquery.flot.pie.js"></script>
+
+<!-- Peity -->
+<script src="https://d1639lhkj5l89m.cloudfront.net/js/plugins/peity/jquery.peity.min.js"></script>
+<script src="https://d1639lhkj5l89m.cloudfront.net/js/demo/peity-demo.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="https://d1639lhkj5l89m.cloudfront.net/js/inspinia.js"></script>
+
+<!-- GITTER -->
+<script src="https://d1639lhkj5l89m.cloudfront.net/js/plugins/gritter/jquery.gritter.min.js"></script>
+
+<!-- Sparkline -->
+<script src="https://d1639lhkj5l89m.cloudfront.net/js/plugins/sparkline/jquery.sparkline.min.js"></script>
+
+<!-- Sparkline demo data  -->
+<script src="https://d1639lhkj5l89m.cloudfront.net/js/demo/sparkline-demo.js"></script>
+
+<!-- ChartJS-->
+<script src="https://d1639lhkj5l89m.cloudfront.net/js/plugins/chartJs/Chart.min.js"></script>
+
+<!-- Event tracker -->
+ <script src="https://d1639lhkj5l89m.cloudfront.net/js/affiliate/affiliate-event-tracker.min.js"></script>
+
+<!-- Toastr -->
+<script src="https://d1639lhkj5l89m.cloudfront.net/js/plugins/dataTables/datatables.min.js"></script>
+<script src="https://d1639lhkj5l89m.cloudfront.net/js/plugins/iCheck/icheck.min.js"></script>
+<script src="https://d1639lhkj5l89m.cloudfront.net/js/plugins/switchery/switchery.js"></script>
+<script src="https://d1639lhkj5l89m.cloudfront.net/js/plugins/sweetalert/sweetalert.min.js"></script>
+<script src="https://d1639lhkj5l89m.cloudfront.net/js/plugins/toastr/toastr.min.js"></script>
+
+<script src="https://d1639lhkj5l89m.cloudfront.net/js/app/vendors/collect.js/build/collect.min.js"></script>
+
+<script src="https://d1639lhkj5l89m.cloudfront.net/js/plugins/select2/select2.min.js"></script>
+<script src="https://d1639lhkj5l89m.cloudfront.net/js/affiliate/helpers.js"></script>
+<script>
+    
+    $(document).ajaxComplete(function(event, xhr, settings) {
+        if (xhr.status === 403 && xhr.responseJSON && xhr.responseJSON.message === 'Permission denied') {
+            toastr.error('Permission denied', 'Error');
+        }
+    });
+
+    var currencySymbol = "&#8377;";
+    var subdomain = "hypdshop";
+    var lineChartColor = "rgba(26,179,148,0.5)";
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+
+        const switchShopSelect = (shopId) => {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'POST',
+                url: `/${subdomain}/multishop/switch`,
+                dataType: 'json',
+                data: {
+                    shop_id: shopId
+                },
+                success: function (results) {
+                    if (results.redirect_url) {
+                        window.location.href = results.redirect_url
+                    }
+                },
+                error: function (_response) {
+                    if (_response.status === 419) {
+                        window.location = '/login';
+                    } else {
+                        console.log('error');
+                    }
+                },
+                fail: function (jqXHR, textStatus, errorThrown) {
+                    console.log('Could not get posts, server response: ' + textStatus + ': ' + errorThrown);
+                }
+            });
+        }
+        $('#switch_shop_select').change(function () {
+            let shopId = $(this).val();
+            switchShopSelect(shopId);
+        });
+
+        $("#header-affiliate-xs__store p").click(function () {
+            let shopId = $(this).attr('value');
+            switchShopSelect(shopId);
+        })
+
+        $('#switch_lang_select').change(function () {
+            let locale = $(this).val();
+            window.location.href = '/' + subdomain + '/language/' + locale;
+        });
+
+        $(".header-affiliate-xs__icon").click(function () {
+            $("<div class='header_menu_show'></div>").insertBefore($("#wrapper"));
+            var select = $(this).attr('data-show');
+            $(".header-affiliate-xs__content").hide();
+            $(select).show();
+        });
+
+        $(document).on("click", ".header_menu_show", function () {
+            $(".header-affiliate-xs__content").hide();
+            $(this).remove();
+        });
+
+        $('input[type="file"]').on('change', function () {
+            let btnFile = $(this).parent().find('a.btn-file');
+
+            if (btnFile.find('span').length == 1) {
+                btnFile.find('span').html($(this).val().split('\\').pop());
+            }
+        });
+    });
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-53113273-30"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'UA-53113273-30');
+</script>
+
+<!-- Userpilot track https://run.userpilot.io/installation/installation-method/javascript -->
+<script>window.userpilotSettings = {token: "NX-d55d9e96"};</script>
+<script src="https://js.userpilot.io/sdk/latest.js"></script>
+<script src="https://d1639lhkj5l89m.cloudfront.net/js/affiliate/userpilot.js"></script>
+
+<!-- Microsoft Clarity Custom Properties -->
+<script>
+    if (typeof window.clarity !== 'undefined' && 'production' == 'production') {
+        console.log('clarity is defined');
+                    console.log('START identify', '12135051');
+            window.clarity('identify', '12135051');
+            window.clarity('set', 'affiliate_id', '12135051');
+            window.clarity('set', 'shop_domain', 'hypdshop.myshopify.com');
+
+            // Set consent v2 - https://app.clickup.com/t/86d0vxjhq
+            if (!sessionStorage.getItem('clarityConsentSet')) {
+                window.clarity('consentv2', {
+                    ad_Storage: "granted",
+                    analytics_Storage: "granted"
+                });
+                console.log('Set consent v2');
+                sessionStorage.setItem('clarityConsentSet', 'true');
+            }
+            }
+</script>
+
+        
+            <script type="text/javascript" src="https://d1639lhkj5l89m.cloudfront.net/js/plugins/fullcalendar/moment.min.js"></script>
+    <script type="text/javascript" src="https://d1639lhkj5l89m.cloudfront.net/js/plugins/momentjs/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="https://d1639lhkj5l89m.cloudfront.net/js/plugins/datapicker/daterangepicker.min.js"></script>
+    <script type="text/javascript">
+    function genTableOrderDetail(data) {
+        let moneyFormat = data.money_format ? data.money_format : currencyFormat;
+    $('#detail_order .modal-body .ibox-content .table-container').html('<div style="text-align:center;"><i class="fa fa-spinner fa-spin" style="font-size:24px"></i></div>');
+    var html = '<table class="table table-bordered">'+
+                '<thead>'+
+                    '<tr>'+
+                        '<th>Type</th>'+
+                        '<th>Subtotal</th>'+
+                       ' <th>Quantity</th>'+
+                       ' <th>SKU</th>'+
+                        '<th>Item name</th>'+
+                        '<th>Commission applied</th>'+
+                        '<th>Commission</th>'+
+                    '</tr>'+
+                '</thead>'+
+                '<tbody>';
+
+    var commissionApplied = '';
+    var totalSale = 0;
+    var totalQuantity = 0;
+    var totalDiscount = 0;
+    var totalDiscountExclude = 0;
+    var totalCommission = 0;
+    var commissionDiscount = 0;
+    var isGiftCardOnly = false;
+    var taxes = 0;
+    var dataOrder = JSON.parse(data.item_detail);
+    var orders = JSON.parse(data.order_detail);
+
+    //translation
+    var percentOfSaleText = 'Percent of sale';
+    var flatRateText = 'Flat rate';
+    var productCommissionText = 'Product commission';
+    var programText = 'Program';
+    if (data.referral_rule) {
+        programText = (data.referral_rule == 1) ? 'Coupon' : ((data.referral_rule == 2) ? 'New customer' : '');
+        if (data.referral_rule == 3) {
+            programText = 'Subscription'
+        }
+    }
+
+    var notIncludingText = 'Not including';
+    var includedInPriceText = 'Included in price';
+    if(dataOrder && typeof dataOrder['total_price'] !== 'undefined') {
+        items = dataOrder['line_items']
+    }else{
+        items = dataOrder;
+    }
+
+    if(items) {
+        if(typeof items[0].is_gift_card_only !== 'undefined'  ){
+            isGiftCardOnly = true;
+        }
+
+        for (var i = 0; i < items.length; i++) {
+            let sales = items[i].price*items[i].quantity;
+            let totalItemDiscount = 0;
+            if(data.refund_id) {
+                sales = -sales;
+            }
+
+            if(items[i].discount_allocations) {
+                let discountAllocations = items[i].discount_allocations;
+                for (var k = discountAllocations.length - 1; k >= 0; k--) {
+                    totalDiscount += items[i].exclude_product_collection ? 0 : discountAllocations[k].amount;
+                    totalItemDiscount += items[i].exclude_product_collection ? 0 : discountAllocations[k].amount;
+                    totalDiscountExclude +=  items[i].exclude_product_collection ? discountAllocations[k].amount : 0;
+                }
+            }
+
+            totalSale += sales;
+            totalQuantity += (items[i].exclude_product_collection ? 0 : items[i].quantity);
+            let commission = 0;
+            if(typeof items[i].commission_amount !== 'undefined') {
+                commissionApplied = items[i].commission_type == 2 ? percentOfSaleText + ' ' + items[i].commission_amount + '%' : flatRateText + ' ' + Shopify.formatMoney(items[i].commission_amount, moneyFormat);
+
+                if( items[i].commission_type == 1 ) {
+                    commission = items[i].quantity*items[i].commission_amount;
+                } else if(items[i].commission_type == 2){
+                    sales -= parseFloat(totalItemDiscount);
+                    var totalTaxProduct = getTotalTaxByProduct(orders, items[i].variant_id);
+                    if (data.exclude_tax && data.include_eu_vat) {
+                        sales -= parseFloat(totalTaxProduct);
+                    }
+
+                    commission = sales * items[i].commission_amount / 100;
+                }
+
+                commissionApplied+= ' <span class="label label-default">'+ productCommissionText +'</span>';
+            }else{
+                commissionApplied = data.commission_type == 2 ? percentOfSaleText + ' '+ data.commission_amount + '%' : flatRateText + ' '+Shopify.formatMoney(data.commission_amount, moneyFormat);
+                if(data.commission_type == 2) {
+                    commissionApplied = percentOfSaleText + ' ' + data.commission_amount + '%';
+                }else if(data.commission_type == 1) {
+                    commissionApplied = flatRateText + ' ' +Shopify.formatMoney(data.commission_amount, moneyFormat);
+                }else{
+                    commissionApplied = '-';
+                }
+                if( data.commission_type == 1 ) {
+                    commission = items[i].quantity * data.commission_amount;
+                }else if(data.commission_type == 2){
+                    commission = items[i].quantity * items[i].price*data.commission_amount/100;
+                }
+                if(data.commission_type != 0){
+                    commissionApplied+= ' <span class="label label-default">'+ programText +'</span>';
+                }
+            }
+
+            commission = ( data.commission_type == 2 && data.total <= 0 ) ? 0 : commission;
+            if(data.refund_id) {
+                commission = -commission;
+            }
+
+            var subtotal = Shopify.formatMoney(sales, moneyFormat);
+            if (items[i].exclude_product_collection) {
+                subtotal = '<i>Not including</i>';
+                commissionApplied = 'Excluded from commission <strong>Program</strong>';
+                commission = 0;
+            }
+
+            html += '<tr>';
+            html +=     '<td>Item </td>';
+            html +=     '<td class="'+ (sales < 0 ? 'text-danger':'') +'">'+ subtotal +'</td>';
+            html +=     '<td>'+ items[i].quantity +'</td>';
+            html +=     '<td>'+ items[i].sku +'</td>';
+            html +=     '<td>'+ items[i].title +'</td>';
+            html +=     '<td>'+ commissionApplied +'</td>';
+            html +=     '<td class="'+ (commission < 0 ? 'text-danger':'') +'">'+ Shopify.formatMoney(commission, moneyFormat) +'</td>';
+            html += '</tr>';
+
+            totalCommission += commission;
+        }
+    }
+
+    var valueTaxCommission = 0;
+    if(dataOrder && typeof dataOrder['total_price'] !== 'undefined' && !data.refund_id) {
+        var commissionAppliedTax = '-';
+        var commissionAppliedShipping = '-';
+        if(data.exclude_shipping == 1) {
+            var shippingCommission = '<i>'+ notIncludingText +'</i>';
+            var totalShipping = '<i>' + notIncludingText + '</i>';
+        }else{
+            var shippingCommission = Shopify.formatMoney(dataOrder['total_shipping']*data.commission_amount/100, moneyFormat);
+            var totalShipping = Shopify.formatMoney(dataOrder['total_shipping'], moneyFormat);
+            if(data.commission_type == 2) {
+                commissionAppliedShipping = percentOfSaleText + ' '+ data.commission_amount + '% <span class="label label-default">'+ programText +'</span>';
+            }
+        }
+
+        if(data.exclude_tax == 1) {
+            if(data.include_eu_vat == 1) {
+                var taxCommission = Shopify.formatMoney(-dataOrder['total_tax']*data.commission_amount/100, moneyFormat);
+                valueTaxCommission = dataOrder['total_tax'] * data.commission_amount / 100;
+                var totalTax = Shopify.formatMoney(-dataOrder['total_tax'], moneyFormat);
+                if(data.commission_type == 2) {
+                    commissionAppliedTax = percentOfSaleText + ' ' + data.commission_amount + '% <span class="label label-default">'+ programText +'</span>';
+                    var checkFlatPerItem = true;
+                    for(var item = 0; item < dataOrder.line_items.length; item++) {
+                        if (typeof dataOrder.line_items[item]['commission_type'] === 'undefined' || dataOrder.line_items[item]['commission_type'] != 1) {
+                            checkFlatPerItem = false;
+                            break;
+                        }
+                    }
+
+                    if (checkFlatPerItem){
+                        commissionAppliedTax = '-';
+                        taxCommission = '<i>Not including</i>';
+                    }
+                }
+            }else{
+                var taxCommission = '<i>'+ notIncludingText +'</i>';
+                var totalTax = '<i>'+ notIncludingText +'</i>';
+            }
+        }else{
+            if(data.include_eu_vat == 1) {
+                var taxCommission = '<i>'+ includedInPriceText +'</i>';
+                var totalTax = '<i>'+ includedInPriceText +'</i>';
+            }else{
+                var taxCommission = Shopify.formatMoney(dataOrder['total_tax']*data.commission_amount/100, moneyFormat);
+                valueTaxCommission = dataOrder['total_tax'] * data.commission_amount / 100;
+                var totalTax = Shopify.formatMoney(dataOrder['total_tax'], moneyFormat);
+                if(data.commission_type == 2) {
+                    commissionAppliedTax = percentOfSaleText + ' ' + data.commission_amount + '% <span class="label label-default">'+ programText +'</span>';
+                }
+            }
+        }
+
+        if(data.commission_type != 2) {
+            var shippingCommission = '<i>'+ notIncludingText +'</i>';
+            var taxCommission = '<i>'+ notIncludingText +'</i>';
+        }
+    }
+
+    if(items) {
+        if( totalDiscount == 0 ) {
+            commissionDiscount = 0;
+        }else{
+             commissionDiscount = data.commission - totalCommission + valueTaxCommission;
+            if(data.commission_type == 0) {
+                if(data.refund_id) {
+                    commissionDiscount = data.commission - (totalCommission - data.commission_amount);
+                }else{
+                    commissionDiscount = data.commission - totalCommission - data.commission_amount;
+                }
+
+            }
+        }
+
+        commissionDiscount = (data.total <= 0 || data.commission_type != 2) ? 0 : commissionDiscount;
+        html += '<tr>'+
+            '<td>Discount</td>'+
+            '<td>'+  Shopify.formatMoney(-(dataOrder['total_discounts'] - totalDiscountExclude), moneyFormat) +'</td>'+
+            '<td>-</td>'+
+            '<td>-</td>'+
+            '<td>-</td>'+
+            '<td>-</td>'+
+            '<td>'+ Shopify.formatMoney(commissionDiscount, moneyFormat) +'</td>'+
+            '</tr>';
+    }
+
+    if(isGiftCardOnly) {
+        var commissionGiftCard = data.commission - totalCommission + valueTaxCommission;
+        var amountGiftCard = (typeof items[0].is_gift_card_only !== 'undefined') ? items[0].amount_gift_card : 0;
+        if(data.commission_type == 0) {
+            if(data.refund_id) {
+                commissionGiftCard = data.commission - (totalCommission - data.commission_amount);
+            }else{
+                commissionGiftCard = data.commission - totalCommission - data.commission_amount;
+            }
+        }
+
+        commissionGiftCard = (data.total <= 0 || data.commission_type != 2) ? 0 : commissionGiftCard;
+        html += '<tr>'+
+            '<td>Gift card</td>'+
+            '<td>'+ Shopify.formatMoney(-amountGiftCard, moneyFormat) +'</td>'+
+            '<td>-</td>'+
+            '<td>-</td>'+
+            '<td>-</td>'+
+            '<td>-</td>'+
+            '<td>'+ Shopify.formatMoney(commissionGiftCard, moneyFormat) +'</td>'+
+            '</tr>';
+    }
+
+    if(dataOrder && typeof dataOrder['total_price'] !== 'undefined' && !data.refund_id) {
+        shippingCommission = (shippingCommission == '<i>Not including</i>') ? shippingCommission : (data.total <= 0 ? Shopify.formatMoney(0,moneyFormat) : shippingCommission);
+        html += '<tr>'+
+                '<td>Shipping</td>'+
+                '<td>'+ totalShipping +'</td>'+
+                '<td>-</td>'+
+                '<td>-</td>'+
+                '<td>-</td>'+
+                '<td>'+ commissionAppliedShipping +' </td>'+
+                '<td>'+ shippingCommission +'</td>'+
+            '</tr>';
+
+        taxCommission = (taxCommission == '<i>Not including</i>') ? taxCommission : (data.total <= 0 ? Shopify.formatMoney(0,moneyFormat) : taxCommission);
+        html += '<tr>'+
+                '<td>Tax</td>'+
+                '<td>'+ totalTax +'</td>'+
+                '<td>-</td>'+
+                '<td>-</td>'+
+                '<td>-</td>'+
+                '<td>'+ commissionAppliedTax +'</td>'+
+                '<td>'+ taxCommission +'</td>'+
+            '</tr>';
+    }
+
+    if( data.commission_type == 0) {
+        html += '<tr>'+
+            '<td>Commission</td>'+
+            '<td>-</td>'+
+            '<td>-</td>'+
+            '<td>-</td>'+
+            '<td>-</td>'+
+            '<td>'+flatRateText + ' '+ Shopify.formatMoney(data.commission_amount, moneyFormat) +' <span class="label label-default">'+ programText +'</span></td>'+
+            '<td>'+ Shopify.formatMoney(data.commission_amount, moneyFormat) +'</td>'+
+            '</tr>';
+    }
+
+    html += '<tr class="merchant_adjustment">'+
+        '<td>Merchant adjustment</td>'+
+        '<td>-</td>'+
+        '<td>-</td>'+
+        '<td>-</td>'+
+        '<td>-</td>'+
+        '<td>-</td>'+
+        '<td class="'+ (data.commission < 0 ? 'text-danger':'') +'">' + Shopify.formatMoney(data.commission_adjustment, moneyFormat) + '</td>'+
+        '</tr>';
+
+    html += '<tr style="font-weight:700;background-color:#b4e2d9;">'+
+        '<th>Grand total</th>'+
+        '<td class="'+ (data.total < 0 ? 'text-danger':'') +'">'+ Shopify.formatMoney(data.total, moneyFormat) +'</td>'+
+        '<td>'+ totalQuantity +'</td>'+
+        '<td>-</td>'+
+        '<td>-</td>'+
+        '<td>-</td>'+
+        '<td class="'+ (data.commission < 0 ? 'text-danger':'') +'">' + Shopify.formatMoney(data.commission, moneyFormat) + '</td>'+
+        '</tr>';
+    html +=     '</tbody>'+
+            '</table>';
+
+    $('#detail_order .modal-body .ibox-content .table-container').html(html);
+}
+
+    function getTotalTaxByProduct (orders, variant_id = null) {
+        if (orders) {
+            var totalTax = 0;
+            for (var i = 0; i < orders.line_items.length; i++) {
+                if (orders.line_items[i].tax_lines.length > 0) {
+                    if (variant_id && orders.line_items[i].variant_id == variant_id) {
+                        return orders.line_items[i].tax_lines[0].price ? orders.line_items[i].tax_lines[0].price : 0;
+                    }
+
+                    totalTax += parseFloat(orders.line_items[i].tax_lines[0].price);
+                }
+            }
+
+            return totalTax;
+        }
+    }
+</script>
+    <script>
+        moment.locale('en');
+        // Initialize date range in user's local timezone (will be converted to UTC timestamp when sending to server)
+        var startDate = moment().startOf('day').subtract(29, 'days');
+        var endDate = moment().endOf('day');
+        const otherLanguage = 'Other';
+        var _commission = {
+            data:{
+                sca_source:''
+            },
+            init: function(){
+                _commission.getScaSourceClickTracking();
+                _commission.changeScaSource();
+            },
+            getScaSourceClickTracking: function(){
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'GET',
+                    url: 'dashboard/getScaSourceClickTracking',
+                    dataType: 'json',
+                    success: function(res) {
+                        if(res.status=='ok'){
+                            var html = '<option value="">'+"All sources"+'</option>';
+                            $.each(res.data,function(i,v){
+                                if (v.sca_source === 'Other'){
+                                    html +='<option value="'+v.sca_source+'">'+otherLanguage+'</option>';
+                                }else {
+                                    html +='<option value="'+v.sca_source+'">'+v.sca_source+'</option>';
+                                }
+                            })
+                            $('#sca_source_group').html(html);
+                        }
+                    },
+                    fail: function( jqXHR, textStatus, errorThrown ) {
+                        console.log( 'Could not get posts, server response: ' + textStatus + ': ' + errorThrown );
+                    }
+                });
+            },
+            changeScaSource: function(){
+                $('#sca_source_group').change(function(){
+                    _commission.data.sca_source = $(this).val();
+                    pendingTable.ajax.reload();
+                });
+                $('#status').change(function(){
+                    pendingTable.ajax.reload();
+                });
+            }
+        };
+        var pendingTable;
+        $(document).ready(function () {
+            _commission.init();
+
+            var currentReferralId = undefined;
+
+            pendingTable = $('#commission_datatables').DataTable({
+                searching: true,
+                pageLength: 25,
+                responsive: true,
+                processing: true,
+                serverSide: true,
+                paging: true,
+                order: [[ 0, "desc" ]],
+
+                ajax:{
+                    url: "https://af.uppromote.com/hypdshop/datatables/commission",
+                    data: function ( d ) {
+                        d.sca_source = _commission.data.sca_source;
+                        d.status = $('#status').val();
+                        // Convert local timezone to UTC timestamp for server
+                        d.from = startDate.unix();
+                        d.to = endDate.unix();
+                        let savedPage = parseInt(sessionStorage.getItem('datatable_page')) || 0;
+                        if(savedPage > 0){
+                            d.start = savedPage * d.length;
+                        }
+                    }
+                },
+                language: {"sEmptyTable":"No data available in table","sInfo":"Showing _START_ to _END_ of _TOTAL_ entries","sInfoEmpty":"Showing 0 to 0 of 0 entries","sInfoFiltered":"(filtered from _MAX_ total entries)","sInfoPostFix":"","sInfoThousands":",","sLengthMenu":"Show _MENU_ entries","sLoadingRecords":"Loading...","sProcessing":"Processing...","sSearch":"Search:","sZeroRecords":"No matching records found","oPaginate":{"sFirst":"First","sLast":"Last","sNext":"Next","sPrevious":"Previous"},"oAria":{"sSortAscending":": activate to sort column ascending","sSortDescending":": activate to sort column descending"},"buttons":{"copy":"Copy","csv":"CSV","excel":"Excel","pdf":"PDF","print":"Print"}}
+                ,
+                "drawCallback": function( settings ) {
+                    $('[data-toggle="tooltip"]').tooltip();
+                },
+                dom: '<"datatable_toolbar"><"html5buttons"B>lTfgtip',
+                buttons: [
+                    {
+                        extend: 'copy', className: "html5buttons-hide d-none", exportOptions: {
+                            columns: ':visible:not(.not-export), .export-only'
+                        }
+                    },
+                    {
+                        extend: 'csv', className: "html5buttons-hide d-none", exportOptions: {
+                            columns: ':visible:not(.not-export), .export-only'
+                        }
+                    },
+                    {
+                        extend: 'excel', title: 'ExampleFile', className: "html5buttons-hide d-none", exportOptions: {
+                            columns: ':visible:not(.not-export), .export-only'
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        className: "html5buttons-hide d-none",
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            var visibleColumns = [];
+                            $('#commission_datatables').DataTable().columns().every(function () {
+                                if (this.visible()) {
+                                    visibleColumns.push(this.index());
+                                }
+                            });
+                            $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');
+
+                            $(win.document.body).find('table tbody tr').each(function () { //remove các thẻ td thừa
+                                $(this).find('td').each(function (index) {
+                                    if ($.inArray(index, visibleColumns) === -1) {
+                                        $(this).remove();
+                                    }
+                                });
+                            });
+                            $(win.document.body).find('table thead th').each(function (index) { //remove các thẻ th thừa
+                                if ($.inArray(index, visibleColumns) === -1) {
+                                    $(this).remove();
+                                }
+                            });
+                        }
+                    },
+                    {
+                        className: "html5buttons-export btn btn-default",
+                        text: '<div class="btn-group">' +
+                            '<button id="payment-export-approved-referrals" class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                            '<i class="fal fa-download" style="color: #092C4C;"></i>&nbsp; Export file <i class="far fa-caret-down" style="margin-left: 20px; color: #092C4C;"></i></button>' +
+                            '<div id="export-approved-referrals" class="dropdown-menu dropdown-menu-wide" aria-labelledby="dropdownMenuLink">' +
+                            '<li class="export-option" value=".buttons-copy">Copy</li>' +
+                            '<li class="export-option" value=".buttons-csv">CSV</li>' +
+                            '<li class="export-option" value=".buttons-excel">Excel</li>' +
+                            '<li class="export-option" value=".buttons-print">Print</li>' +
+                            '</div></div>'
+                    }
+                ],
+                columnDefs: [
+                    { width: "10%", targets: 0, className: "text-center" },
+                    { width: "5%", targets: 1, orderable: false, className: "text-center" },
+                    { width: "10%", targets: 2, className: "text-center font-bold" },
+                    {
+                        width: "5%",
+                        targets: 3,
+                        searchable: true,
+                        className: "text-center font-bold",
+                                                "visible": false
+                                            },
+                    {
+                        width: "10%",
+                        targets: 4,
+                        className: "text-center font-bold" ,
+                        earchable: false,
+                                                "visible": false
+                                            },
+                    { width: "10%", targets: 5, className: "text-center font-bold" },
+                    { width: "5%", targets: 6, className: "text-center" },
+                    {
+                        width: "5%",
+                        targets: 7,
+                        className: "text-center font-bold",
+
+                                                "visible": true
+                                            },
+                    { width: "8%", targets: 8, orderable: false, className: "text-center" },
+                                    ],
+                columns: [
+                    {data: 'created_at', name: 'referrals.created_at', render:function( data, type, row ){
+                        // Convert UTC timestamp from server to user's local timezone
+                        let date = moment.unix(data);
+                        return '<span>'+date.fromNow()+'<br><small>' + date.format('lll') + '</small></span>';
+                    }},
+                    {data: 'id', name: 'id', render:function( data, type, row){
+                        if(row.referral_id != null && row.child_affiliate != null) {
+                            let titleTooltip = '';
+                            if(row.exist){
+                                try {
+                                    titleTooltip = 'Network commission, brought by: '+row.parent.affiliate.first_name+ ' ' + row.parent.affiliate.last_name ;
+                                    return '<span data-html="true" class="label" data-toggle="tooltip" data-placement="top" title="'+ titleTooltip +'"><i class="fa fa-sitemap"></i></span>  '+data;
+                                }catch(err){
+
+                                }
+                            }
+                            titleTooltip = 'Network commission';
+                            return '<span data-html="true" class="label" data-toggle="tooltip" data-placement="top" title="'+ titleTooltip +'"><i class="fa fa-sitemap"></i></span>  '+data;
+
+
+                        }else{
+                            let iconClass="";
+                            let titleTooltip = "";
+                            if(row.tracking_type == -1) {
+                                iconClass = 'fa-ban';
+                                titleTooltip = 'Unknown';
+                            }else if( row.tracking_type == 0 ){
+                                iconClass = 'fa-user';
+                                titleTooltip = 'Tracked by connect customer';
+                            }else if( row.tracking_type == 1 ){
+                                iconClass = 'fa-tags';
+                                titleTooltip = 'Tracked by coupon';
+                            }else if( row.tracking_type == 2 ){
+                                iconClass = 'fa-link';
+                                titleTooltip = 'Tracked by affiliate link';
+                            }else if( row.tracking_type == 3 ){
+                                iconClass = 'fa-parking-circle';
+                                titleTooltip = 'Tracked by connect product';
+                            }else if( row.tracking_type == 4 ){
+                                iconClass = 'fa-upload';
+                                titleTooltip = 'Manually Import';
+                            }else if( row.tracking_type == 5 ){
+                                iconClass = 'fa-wrench';
+                                titleTooltip = 'Manually added';
+                            }else if(row.tracking_type == 6){
+                                iconClass = 'fa-undo';
+                                titleTooltip = 'Recurring order';
+                            }else if(row.tracking_type == 7){
+                                iconClass = 'fa-sitemap';
+                                titleTooltip = 'Network commission';
+                                return '<span class="" data-toggle="tooltip" data-placement="top" ' +
+                                    'title="'+ titleTooltip +'" ' +
+                                    'style="background-color: #D1DADE;color: #5E5E5E;padding: 3px 8px;text-shadow: none;border-radius: 3px;">' +
+                                    '<i class="fa '+ iconClass +'"></i>' +
+                                    '</span>  '+data;
+                            }else if(row.tracking_type == 10){
+                                iconClass = 'fa-chart-pie-alt';
+                                titleTooltip = 'Tracked by affiliate link (partially paid)';
+                            }else if(row.tracking_type == 14){
+                                iconClass = 'fa-chart-pie-alt';
+                                titleTooltip = 'Tracked by affiliate link (fully paid)';
+                            }else if(row.tracking_type == 9){
+                                iconClass = 'fa-chart-pie-alt';
+                                titleTooltip = 'Tracked by coupon (partially paid)';
+                            }else if(row.tracking_type == 13){
+                                iconClass = 'fa-chart-pie-alt';
+                                titleTooltip = 'Tracked by coupon (fully paid)';
+                            }else if(row.tracking_type == 11){
+                                iconClass = 'fa-chart-pie-alt';
+                                titleTooltip = 'Tracked by connect customer (partially paid)';
+                            }else if(row.tracking_type == 15){
+                                iconClass = 'fa-chart-pie-alt';
+                                titleTooltip = 'Tracked by connect customer (fully paid)';
+                            }else if(row.tracking_type == 12){
+                                iconClass = 'fa-chart-pie-alt';
+                                titleTooltip = 'Tracked by connect product (partially paid)';
+                            }else if(row.tracking_type == 16){
+                                iconClass = 'fa-chart-pie-alt';
+                                titleTooltip = 'Tracked by connect product (fully paid)';
+                            }else if(row.tracking_type == 8){
+                                iconClass = 'fa-badge-dollar';
+                                titleTooltip = 'Recruitment bonus';
+                            }else{
+                                iconClass = 'fa-usd-circle';
+                                titleTooltip = 'Performance bonus';
+                            }
+
+                            return '<span class="" data-toggle="tooltip" data-placement="top" title="'+ titleTooltip +'"><i class="fal '+ iconClass +'"></i></span>  '+data;
+                         }
+
+                    }},
+                    {data: 'order_number', name: 'referrals.order_number', render:function( data, type, row ){
+                        if(data){
+                            return '#'+data;
+                        }else{
+                            return '';
+                        }
+                    }},
+                    {data: 'full_name', name: 'customer_infos.full_name', render:function( data, type, row ){
+                        return data;
+                        // return data;
+                    }},
+                    {data: 'shipping_address', name: 'customer_infos.shipping_address', render:function( data, type, row ){
+                        return data;
+                    }},
+                    {data: 'total', name: 'referrals.total', render: function( data, type, row ){
+                        if(data < 0) {
+                            return '<span class="text-danger">'+ Shopify.formatMoney(data, row.currency) + '</span>';
+                        }else{
+                            return '<span class="text-info">'+ Shopify.formatMoney(data, row.currency) + '</span>';
+                        }
+
+                    }},
+                    {data: 'quantity', name: 'referrals.quantity', render:function( data, type, row ){
+                        if(row.level == 0) {
+                            return data;
+                        }else{
+                            return '---';
+                        }
+                    }},
+
+                    {data: 'commission',name:'referrals.commission', render: function( data, type, row )
+                        {
+                            if(data < 0) {
+                                return '<span class="text-danger">'+ Shopify.formatMoney(data, row.currency) + '</span>';
+                            }else{
+                                return '<span class="text-info">'+ Shopify.formatMoney(data, row.currency) + '</span>';
+                            }
+                        }
+                    },
+                    {data: 'status', render: function( data, type, row ){
+
+                             if( data == 0 ) {
+                                return  '<span class="text-warning">Pending</span>';
+                            }else if(data == 1) {
+                                return '<span class="text-primary">Approved</span>';
+                            }else if(data == 2){
+                                return '<span class="text-info">Paid</span>';
+                            }else{
+                                return '<span class="text-danger">denied</span>';
+                            }
+                        }
+                    },
+                    {data: 'sca_source', name: 'referrals.sca_source', render:function( data, type, row ){
+                        return data;
+                    }},
+                    {data: 'id', name:'referrals.id', render: function( data, type, row ) {
+                        if (row.level == 0) {
+                            var id = row.id;
+                            var detailUrl = "https://af.uppromote.com/hypdshop/commission/order-detail/:id";
+                            detailUrl = detailUrl.replace(':id', id);
+                            var tooltip = "Detail";
+
+                            if (row.calculate_type == '1'){
+                                return '<button class="open-detail" data-url="' + detailUrl + '" data-toggle="tooltip" data-placement="top" data-original-title="' + tooltip + '">' +
+                                    '<i class="fal fa-file-search box-icon"></i>' +
+                                    '</button>';
+                            } else {
+                                return '<button data-toggle="tooltip" data-placement="top" data-original-title="' + tooltip + '" class="open-modal-order" data-id="' + row.id + '"><i class="fal fa-file-search box-icon"></i></button>';
+                            }
+                        } else {
+                            return '';
+                        }
+                    }},
+                                        { data: 'affiliate_coupon', name: 'affiliate_coupon', visible: false, className: 'export-only' }
+
+                ]
+
+            });
+
+            // search datatable custom affiliate_datatable
+            $('#commission-search-datatable').on('keyup', function () {
+                pendingTable.search($(this).val()).draw();
+            });
+
+            $('#export-approved-referrals .export-option').on('click', function () {
+                var btnExport = $(this).attr("value");
+                $("#commission_datatables_wrapper " + btnExport).trigger("click");
+            });
+
+            $(document).on('click', '.open-modal-order',function(){
+                var id = $(this).data('id');
+                currentReferralId = id;
+                $('#detail_order').modal('show');
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'POST',
+                    url: "https://af.uppromote.com/hypdshop/commission/order_detail",
+                    dataType: 'json',
+                    data:{id:id},
+                    success: function(results) {
+                        if(results.status == 'ok') {
+                            if(results.data.comment) {
+                                $('#detail_order .comment-container').show();
+                                $('#detail_order .comment-content').text(results.data.comment);
+                            }else{
+                                $('#detail_order .comment-container').hide();
+                            }
+                            genTableOrderDetail(results.data);
+                        }else{
+                            swal({
+                                title: "Error",
+                                text: results.message
+                            });
+                        }
+
+                    },
+                    fail: function( jqXHR, textStatus, errorThrown ) {
+                        console.log( 'Could not get posts, server response: ' + textStatus + ': ' + errorThrown );
+                    }
+                });
+            });
+
+            $('#view_invoice_btn').click(function(){
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'POST',
+                    url: "https://af.uppromote.com/hypdshop/commission/get_invocie",
+                    dataType: 'json',
+                    data:{ref_id:currentReferralId},
+                    success: function(results) {
+                        if(results.status == 'ok') {
+                            window.open(results.link);
+                        }else{
+                            swal({
+                                title: "Error",
+                                text: results.message
+                            });
+                        }
+
+                    },
+                    fail: function( jqXHR, textStatus, errorThrown ) {
+                        console.log( 'Could not get posts, server response: ' + textStatus + ': ' + errorThrown );
+                    }
+                });
+            });
+
+            var datePickerRange = {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 days': [moment().subtract(29, 'days'), moment()],
+                'This month': [moment().startOf('month'), moment().endOf('month')],
+                'Last month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            }
+
+            function chartDateRangeCallback(start, end) {
+                $('#reportrange span').html(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'));
+                startDate = start;
+                endDate = end;
+                var type = $('.chart-data-type li.active a').data('type');
+                pendingTable.ajax.reload();
+            }
+
+            $('#reportrange').daterangepicker({
+                startDate: startDate,
+                endDate: endDate,
+                ranges: datePickerRange,
+                "locale": {
+                    "customRangeLabel": "Custom range",
+                    "applyLabel": "Apply",
+                    "cancelLabel": "Cancel"
+                }
+            }, chartDateRangeCallback);
+
+            chartDateRangeCallback(startDate, endDate);
+
+            let isRestored = false;
+            const dataTableKeys = [
+                'datatable_search',
+                'datatable_page',
+                'datatable_length',
+                'datatable_order',
+                'datatable_status',
+                'datatable_sca_source',
+                'datatable_from',
+                'datatable_to'
+            ];
+
+            dataTableKeys.forEach(key => {
+                let value = sessionStorage.getItem(key);
+                if (value !== null) {
+                    switch (key) {
+                        case 'datatable_search':
+                            pendingTable.search(value).draw();
+                            break;
+                        case 'datatable_page':
+                            let savedPage = parseInt(sessionStorage.getItem('datatable_page')) || 0;
+                            if (savedPage > 0) {
+                                pendingTable.one('draw', function () {
+                                    pendingTable.page(savedPage).draw(false);
+                                });
+                            }
+                            break;
+                        case 'datatable_length':
+                            pendingTable.page.len(parseInt(value)).draw();
+                            break;
+                        case 'datatable_order':
+                            pendingTable.order(JSON.parse(value)).draw();
+                            break;
+                        case 'datatable_status':
+                            $('#status').val(value);
+                            break;
+                        case 'datatable_sca_source':
+                            $('#sca_source_group').val(value);
+                            break;
+                        case 'datatable_from':
+                        case 'datatable_to':
+                            if (sessionStorage.getItem('datatable_from') && sessionStorage.getItem('datatable_to')) {
+                                // Restore timestamps from sessionStorage and convert to user's local timezone
+                                startDate = moment.unix(sessionStorage.getItem('datatable_from'));
+                                endDate = moment.unix(sessionStorage.getItem('datatable_to'));
+                                $('#reportrange span').html(startDate.format('MMM D, YYYY') + ' - ' + endDate.format('MMM D, YYYY'));
+                            }
+                            break;
+                    }
+                    isRestored = true;
+                }
+            });
+
+            if (isRestored) {
+                pendingTable.ajax.reload(null, false);
+            }
+
+            dataTableKeys.concat(['prev_page_url']).forEach(key => sessionStorage.removeItem(key));
+
+            $(document).on('click', '.open-detail', function (e) {
+                e.preventDefault();
+
+                const filters = {
+                    'datatable_search': pendingTable.search(),
+                    'datatable_page': pendingTable.page(),
+                    'datatable_length': pendingTable.page.len(),
+                    'datatable_order': JSON.stringify(pendingTable.order()),
+                    'datatable_status': $('#status').val(),
+                    'datatable_sca_source': $('#sca_source_group').val(),
+                    'datatable_from': startDate.unix(),
+                    'datatable_to': endDate.unix(),
+                    'prev_page_url': window.location.href
+                };
+
+                Object.keys(filters).forEach(key => sessionStorage.setItem(key, filters[key]));
+
+                window.location.href = $(this).data('url');
+            });
+
+            $('#commission_datatables').on('buttons-action.dt', function (e, buttonApi, dataTable, node, config) {
+                let exportData = dataTable.rows({ search: 'applied' }).data().toArray();
+                let referralIds = exportData.map(item => item.id).filter(id => id !== undefined && id !== null);
+
+                $.ajax({
+                    url: "https://af.uppromote.com/hypdshop/datatables/commission",
+                    type: 'get',
+                    data: {
+                        monitor_referral_ids: referralIds
+                    },
+                });
+            });
+        });
+    </script>
+        <script src="https://d1639lhkj5l89m.cloudfront.net/js/plugins/iframeResizer/iframeResizer.contentWindow.js" type="text/javascript" data-react-helmet="true"></script>
+        <script src="https://af.uppromote.com/js/affiliate/affiliate-general.js"></script>
+
+        <!-- aff chat -->
+    
+                    
+
+<div class="daterangepicker ltr show-ranges opensright"><div class="ranges"><ul><li data-range-key="Today">Today</li><li data-range-key="Yesterday">Yesterday</li><li data-range-key="Last 7 days">Last 7 days</li><li data-range-key="Last 30 days">Last 30 days</li><li data-range-key="This month">This month</li><li data-range-key="Last month">Last month</li><li data-range-key="Custom range">Custom range</li></ul></div><div class="drp-calendar left"><div class="calendar-table"></div><div class="calendar-time" style="display: none;"></div></div><div class="drp-calendar right"><div class="calendar-table"></div><div class="calendar-time" style="display: none;"></div></div><div class="drp-buttons"><span class="drp-selected"></span><button class="cancelBtn btn btn-sm btn-default" type="button">Cancel</button><button class="applyBtn btn btn-sm btn-primary" disabled="disabled" type="button">Apply</button> </div></div><script type="text/javascript" id="" charset="">(function(a,e,b,f,g,c,d){a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)};c=e.createElement(f);c.async=1;c.src="https://www.clarity.ms/tag/"+g+"?ref\x3dgtm2";d=e.getElementsByTagName(f)[0];d.parentNode.insertBefore(c,d)})(window,document,"clarity","script","eyl8j6f1je");</script><script type="text/javascript" id="" charset="">(function(){var b=document.querySelector("#google_translate_element select.goog-te-combo"),c=function(a){window.dataLayer.push({event:"custom.filter.select-language",eventType:a.type,eventTarget:a.target})};b.addEventListener("change",c,!0);b=document.querySelector("#edit_file_modal select#file-category");c=function(a){window.dataLayer.push({event:"custom.filter.select-category-creative",eventType:a.type,eventTarget:a.target})};b.addEventListener("change",c,!0)})();</script></body></html>

@@ -1,0 +1,40 @@
+{
+  "url": "https://af.uppromote.com/hypdshop/commission",
+  "title": "Commission",
+  "tables": [
+    {
+      "index": 0,
+      "headerTexts": [
+        "Create at",
+        "Referral ID",
+        "Order number",
+        "Total sales",
+        "Quantity",
+        "Commission",
+        "Status",
+        "Source",
+        "Action"
+      ],
+      "rowCount": 101
+    }
+  ],
+  "pagination": {
+    "nextButton": [
+      {
+        "selector": "a:has-text('Next')",
+        "count": 1
+      }
+    ],
+    "pageLengthSelect": [
+      {
+        "selector": "select[name$='_length']",
+        "count": 1
+      },
+      {
+        "selector": "div[id$='_length'] select",
+        "count": 1
+      }
+    ]
+  },
+  "capturedAt": "2026-10-02T01:38:22.166Z"
+}
