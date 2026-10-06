@@ -21,16 +21,6 @@
       "sameSite": "Lax"
     },
     {
-      "name": "_gid",
-      "value": "GA1.2.191667192.1790922028",
-      "domain": ".uppromote.com",
-      "path": "/",
-      "expires": 1791019875,
-      "httpOnly": false,
-      "secure": false,
-      "sameSite": "Lax"
-    },
-    {
       "name": "CLID",
       "value": "9e40a81bf93f4cd186f6051aea7325e5.20261002.20271002",
       "domain": "www.clarity.ms",
@@ -121,16 +111,6 @@
       "sameSite": "None"
     },
     {
-      "name": "_gat_gtag_UA_53113273_30",
-      "value": "1",
-      "domain": ".uppromote.com",
-      "path": "/",
-      "expires": 1790933534,
-      "httpOnly": false,
-      "secure": false,
-      "sameSite": "Lax"
-    },
-    {
       "name": "_ga_5RGWXF3HYE",
       "value": "GS2.1.s1790933061$o2$g1$t1790933475$j59$l0$h0",
       "domain": ".uppromote.com",
@@ -151,31 +131,53 @@
       "sameSite": "Lax"
     },
     {
-      "name": "_clsk",
-      "value": "v0mxpj%5E1790933476319%5E2%5E1%5Ei.clarity.ms%2Fcollect",
-      "domain": ".uppromote.com",
+      "name": "__cf_bm",
+      "value": "tvUdG7maPcnUpSmW81gNQ8Ia65pq9S0WP1V9sO44ftU-1791265961.5695066-1.0.1.1-jqPyNdQFcHpnfN0bzK3udAKfuLk9jlQiRV6aRtSH3rKuL1sE7z_LaewvETBnBoQlrobwXlJlTRXmeKFX3U.WMKCM24ZnmSqQe75f_wIcstJkZNlnES3zRrQjeWOQyUDZ",
+      "domain": ".hcaptcha.com",
       "path": "/",
-      "expires": 1791019876,
+      "expires": 1791267762.931895,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "hmt_id",
+      "value": "2a46a280-78f3-4864-b3c4-ce2651efba2d",
+      "domain": "api.hcaptcha.com",
+      "path": "/",
+      "expires": 1793857982.501322,
       "httpOnly": false,
-      "secure": false,
-      "sameSite": "Lax"
+      "secure": true,
+      "sameSite": "None",
+      "partitionKey": "https://uppromote.com",
+      "_crHasCrossSiteAncestor": true
+    },
+    {
+      "name": "__cflb",
+      "value": "0H28vk2VKwPbLoawFjLBKNaeiPwjC8u2ePPN2dAwVDf",
+      "domain": "api.hcaptcha.com",
+      "path": "/",
+      "expires": 1791267782.501405,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
     },
     {
       "name": "XSRF-TOKEN",
-      "value": "eyJpdiI6InZadSsyczY1ZWZIbklNZEt3RGpvNWc9PSIsInZhbHVlIjoid1RxaXVDZUF2bytGY01HdUcweUQ0NlNMMmpCYjZWR29kV3dIQmtWUjR2d1VmVjJseWZEOVVXdmlsNEpOT0JINSIsIm1hYyI6ImQ3OTI3ZmVjMTQ0MzYwOTU0NGE2NDBlN2JhYzg5NGQ1YTNiNWUyOTc3MTQ4OWFmMjEyZmUyZWFhZTkzYzQ0ZTMifQ%3D%3D",
+      "value": "eyJpdiI6IkdMNmVpQ3pGd3B3VitKSDVtSG5sbVE9PSIsInZhbHVlIjoiVHI1SzA3WEZCZXZKczFRc25cL1JcL05QSlRHeTJHU2VSNXpwSTBNbFVoTitDRjVaTnoyc1N1TXBNZXpUMUROd2hMIiwibWFjIjoiNTQ0ODk0ZmMzOTI5NTMyZjQ2MGIzNmYzYjA5MDZiMjNkYThhMjMxOTlmOGE3ODhiNGQ0MjQ2MjRmYjlmNTYwZCJ9",
       "domain": "af.uppromote.com",
       "path": "/",
-      "expires": 1790976678.499754,
+      "expires": 1791309891.981939,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "laravel_session",
-      "value": "eyJpdiI6IkF3aTM0clFcL1RvQUhhdVMwQk1mZFFnPT0iLCJ2YWx1ZSI6IkRMTUU4VFQ2OHoxZEpjeWFvWkErajBRWkR5cXY4YzVoODBsVHd3WWQyRnkrVW9ZcXR6RzdYc2lXbXNFZG9VQllTQ2FMeGIybmtCaHE0Vmo2SksxcWs5SnlEZG5BMGV2ZkVmeEZXTnJOTWpJZW5VUlpGNVo5djZzREdHNDVtUys1IiwibWFjIjoiOTExNTY1NmE3MTZlOGQ2OTI3OTMwMDllMTUzMTNhMTVkYTdiYWQ0YWNmZTNkZmE4MWUyZWE2M2IzMDZiNTM2YyJ9",
+      "value": "eyJpdiI6IllUOEVZNGRlTFdnXC9sOWhnMEJXNHNRPT0iLCJ2YWx1ZSI6ImNnTHYwNEkzSHNoN29ReFpLMjE0NjZkYWQ1NUtSOHNEYjNndU94aHprK3hcLzJ3RDhVOEdCV0VWRk4zeU1CcitxdGJ5Qk9PNWg3WVZLWlRZZ0ZEOVNXaFFqWmNqMjJrcWgxU3czRjZPTmFKamtJOTVmWUNcL3hKQTRYWmFCMFRhZkUiLCJtYWMiOiJkZmYxODM0ZmYwODRiMzk0ZDkxOTdlYTRjY2MyOTM1OTdjYWE2YmM0MmQxYzI2OWI4Njc3YjU2ZTJkMTMxNDNkIn0%3D",
       "domain": "af.uppromote.com",
       "path": "/",
-      "expires": 1790976678.500009,
+      "expires": 1791309891.982278,
       "httpOnly": true,
       "secure": true,
       "sameSite": "None"
